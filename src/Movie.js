@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Movie = (movie) => {
     console.log('movie', movie)
@@ -8,6 +9,10 @@ const Movie = (movie) => {
             <h1>{movie.movie.title}</h1>
         </div>
     )
+}
+
+Movie.propTypes = {
+    movie: PropTypes.object
 }
 
 export default Movie

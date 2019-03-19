@@ -5,6 +5,8 @@ import  allPurposeFetch  from './allPurposeFetch';
 import apiKey from './APIkey.js'
 import { Route } from 'react-router-dom'
 import AllMovies from './AllMovies' 
+import Header from './Header'
+import Nav from './Nav'
 
 class App extends Component {
   constructor() {
@@ -28,20 +30,13 @@ class App extends Component {
     const movies = await allPurposeFetch(url)
     this.setState({ movies: movies.results })
     
-    // this.displayMovies(this.state.movies)
-  }
-
-  displayMovies = (movieArray) => {
-    this.state.movies.map((movie) => {
-
-    })
   }
 
   render() {
     return (
       <div className="App">
-        {/* <Header />
-        <Nav /> */}
+        <Header />
+        <Nav />
         <Route exact path='/' render={ () => <AllMovies movies={this.state.movies} />} />
       </div>
     );
