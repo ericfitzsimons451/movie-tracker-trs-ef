@@ -7,6 +7,7 @@ class App extends Component {
     return (
       <div className="App">
         Movie Tracker
+        <h1>Hello, yo!</h1>
       </div>
     );
   }
