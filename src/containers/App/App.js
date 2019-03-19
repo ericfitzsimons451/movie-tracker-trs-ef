@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import './App.css';
-import './allPurposeFetch'
-import  allPurposeFetch  from './allPurposeFetch';
-import apiKey from './APIkey.js'
+import './App.scss'
+import  allPurposeFetch  from '../../allPurposeFetch';
+import apiKey from '../../APIkey.js'
 import { Route } from 'react-router-dom'
-import AllMovies from './AllMovies' 
-import Header from './Header'
-import Nav from './Nav'
+import AllMovies from '../../components/AllMovies/AllMovies' 
+import Header from '../../components/Header/Header'
+import Nav from '../../components/Nav/Nav'
 
 class App extends Component {
   constructor() {

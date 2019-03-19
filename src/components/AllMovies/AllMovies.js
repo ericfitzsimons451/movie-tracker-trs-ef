@@ -1,5 +1,5 @@
 import React from 'react' 
-import Movie from './Movie'
+import Movie from '../../components/Movie/Movie'
 import PropTypes from 'prop-types'
 
 const AllMovies = ( {movies} ) => {
