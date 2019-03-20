@@ -9,7 +9,7 @@ import Nav from '../../components/Nav/Nav'
 import storeMovies from '../../actions/index'
 import { connect } from 'react-redux'
 
-class App extends Component {
+export class App extends Component {
 
   componentDidMount() {
     this.fetchMovies()
@@ -46,7 +46,7 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   storeMovies: (movies) => dispatch(storeMovies(movies))
 })
 
