@@ -1,4 +1,5 @@
 import React from 'react' 
+import './AllMovies.scss'
 import Movie from '../../components/Movie/Movie'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'

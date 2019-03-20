@@ -19,7 +19,6 @@ class App extends Component {
     const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
     const movies = await allPurposeFetch(url)
     const cleanedMovies = this.cleanMovies(movies.results)
-    // this.setState({ movies: cleanedMovies })
     this.props.storeMovies(cleanedMovies)
     
   }
@@ -33,7 +32,6 @@ class App extends Component {
       vote_average: movie.vote_average,
       overview: movie.overview
     }))
-    console.log(cleanedMovies)
     return cleanedMovies;
   }
 
