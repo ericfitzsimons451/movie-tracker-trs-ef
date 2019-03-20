@@ -6,19 +6,10 @@ import { Route } from 'react-router-dom'
 import AllMovies from '../../components/AllMovies/AllMovies' 
 import Header from '../../components/Header/Header'
 import Nav from '../../components/Nav/Nav'
+import storeMovies from '../../actions/index'
+import { connect } from 'react-redux'
 
 class App extends Component {
-  constructor() {
-    super() 
-    this.state = {
-      movies: [],
-      //DOES THE STORE NEED TO KNOW ABOUT MOVIES?  OR, JUST USERS?  WHY?
-      favorites: [],
-      //there should be a TOGGLE function.  
-      users: []
-      //Almost gauranteed that we'll need the Redux store for these
-    }
-  }
 
   componentDidMount() {
     this.fetchMovies()
@@ -27,8 +18,23 @@ class App extends Component {
   fetchMovies = async () => {
     const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
     const movies = await allPurposeFetch(url)
-    this.setState({ movies: movies.results })
+    const cleanedMovies = this.cleanMovies(movies.results)
+    // this.setState({ movies: cleanedMovies })
+    this.props.storeMovies(cleanedMovies)
     
+  }
+
+  cleanMovies = (movies) => {
+    const cleanedMovies = movies.map(movie => ({
+      name: movie.title,
+      id: movie.id,
+      poster_path: movie.poster_path,
+      release_date: movie.release_date,
+      vote_average: movie.vote_average,
+      overview: movie.overview
+    }))
+    console.log(cleanedMovies)
+    return cleanedMovies;
   }
 
   render() {
@@ -36,10 +42,14 @@ class App extends Component {
       <div className="App">
         <Header />
         <Nav />
-        <Route exact path='/' render={ () => <AllMovies movies={this.state.movies} />} />
+        <Route exact path='/' render={ () => <AllMovies />} />
       </div>
     );
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  storeMovies: (movies) => dispatch(storeMovies(movies))
+})
+
+export default connect(null, mapDispatchToProps)(App);

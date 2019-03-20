@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Movie = (movie) => {
-    console.log('movie', movie)
+const Movie = (props) => {
+    // console.log('movie', movie)
+    const {movie} = this.props; 
 
     return (
         <div>
-            <h1>{movie.movie.title}</h1>
+            <h1>{movie.title}</h1>
         </div>
     )
 }
