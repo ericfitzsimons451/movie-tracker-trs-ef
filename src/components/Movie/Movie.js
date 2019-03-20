@@ -7,7 +7,7 @@ const Movie = ({ name, poster_path, release_date, vote_average, overview }) => {
     return (
         <div className='movie-card'>
             <h3>{name}</h3>
-            {/* <img src='{poster_path}' alt="poster image" /> */}
+            <img src={`http://image.tmdb.org/t/p/original/${poster_path}`} alt="poster image" />
             <h3>Released: {release_date}</h3>
             <h3>Vote Average: {vote_average}</h3>
             <p>Overview: {overview}</p>
