@@ -11,6 +11,7 @@ const Movie = ({ name, poster_path, release_date, vote_average, overview }) => {
             <h3>Released: {release_date}</h3>
             <h3>Vote Average: {vote_average}</h3>
             <p>Overview: {overview}</p>
+            <button>Add To Favorites</button>
         </div>
     )
 }
