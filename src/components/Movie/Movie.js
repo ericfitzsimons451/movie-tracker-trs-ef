@@ -1,7 +1,7 @@
 import React from 'react'
 import './Movie.scss'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 
 const Movie = ({ name, poster_path, release_date, vote_average, overview }) => {
     return (
@@ -20,8 +20,10 @@ Movie.propTypes = {
     movie: PropTypes.object
 }
 
-const mapStateToProps = (state) => ({
-    movies: state.movies
-})
+// const mapStateToProps = (state) => ({
+//     movies: state.movies
+// })
 
-export default connect(mapStateToProps)(Movie)
+// export default connect(mapStateToProps)(Movie)
+
+export default Movie
