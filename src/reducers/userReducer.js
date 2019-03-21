@@ -1,7 +1,7 @@
 export const userReducer = (state={}, action) => {
     switch (action.type) {
         case 'LOGIN_USER':
-            return action.userData
+            return {user: action.userData, loggedIn: true}
         default: 
             return state
     }
