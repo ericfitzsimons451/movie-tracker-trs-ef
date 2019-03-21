@@ -28,7 +28,6 @@ export class Login extends Component {
             } 
         })
         const user = await response.json()
-        console.log(user)
         this.props.loginUser(user.data)
         this.setState({email: '', password: ''})
         } catch (error) {
