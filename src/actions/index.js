@@ -3,4 +3,8 @@ export const storeMovies = (movies) => ({
     movies,
 })
 
-export default storeMovies;
+export const loginUser = (userData) => ({
+    type: 'LOGIN_USER',
+    userData
+})
+

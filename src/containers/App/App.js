@@ -6,7 +6,8 @@ import { Route } from 'react-router-dom'
 import AllMovies from '../../components/AllMovies/AllMovies' 
 import Header from '../../components/Header/Header'
 import Nav from '../../components/Nav/Nav'
-import storeMovies from '../../actions/index'
+import Login from '../../containers/Login/Login'
+import { storeMovies}  from '../../actions/index'
 import { connect } from 'react-redux'
 
 export class App extends Component {
@@ -41,6 +42,7 @@ export class App extends Component {
         <Header />
         <Nav />
         <Route exact path='/' render={ () => <AllMovies />} />
+        <Route exact path='/login' render={ () => <Login />} /> 
       </div>
     );
   }
