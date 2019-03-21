@@ -3,27 +3,24 @@ import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 const Nav = (props) => {
-    if (props.loggedIn === false) {
-        return (
-            <div>
-                <NavLink to='/' className="movies-link">Show Movies</NavLink>
-                <NavLink to='/favorites' className="favorites-link">Show Favorites</NavLink>
-                <NavLink to='/login'>Sign In</NavLink>
-            </div>
-        )
-    } else {
-        return (
-            <div>
-                <NavLink to='/' className="movies-link">Show Movies</NavLink>
-                <NavLink to='/favorites' className="favorites-link">Show Favorites</NavLink>
-                <NavLink to='/'>Sign Out</NavLink>
-            </div>
-        )
-    }
-}
+    console.log(props)
+    let authLink; 
+    if (!props.user.user) {
+            authLink= <NavLink to='/login'>Sign In</NavLink>
+        } else {
+            authLink = <NavLink to='/'>Sign Out</NavLink>
+        }
 
+    return (
+        <div>
+            <NavLink to='/' className="movies-link">Show Movies</NavLink>
+            <NavLink to='/favorites' className="favorites-link">Show Favorites</NavLink>
+            {authLink}
+        </div>
+    )
+}
 export const mapStateToProps = (state) => ({
-    loggedIn: state.loggedIn
+    user: state.user
 })
 
 export default connect(mapStateToProps)(Nav)

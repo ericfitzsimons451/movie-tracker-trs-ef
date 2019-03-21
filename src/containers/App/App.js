@@ -7,20 +7,13 @@ import AllMovies from '../../components/AllMovies/AllMovies'
 import Header from '../../components/Header/Header'
 import Nav from '../../components/Nav/Nav'
 import Login from '../../containers/Login/Login'
-import { storeMovies, toggleLogin }  from '../../actions/index'
+import { storeMovies }  from '../../actions/index'
 import { connect } from 'react-redux'
 
 export class App extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     loggedIn: false
-  //   }
-  // }
 
   componentDidMount() {
     this.fetchMovies()
-    this.validateUser()
   }
 
   fetchMovies = async () => {
@@ -43,9 +36,6 @@ export class App extends Component {
     return cleanedMovies;
   }
 
-  validateUser = () => {
-    this.props.toggleLogin()
-  }
 
   render() {
     return (
@@ -61,7 +51,6 @@ export class App extends Component {
 
 export const mapDispatchToProps = (dispatch) => ({
   storeMovies: (movies) => dispatch(storeMovies(movies)),
-  toggleLogin: () => dispatch(toggleLogin())
 })
 
 export default connect(null, mapDispatchToProps)(App);

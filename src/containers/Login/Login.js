@@ -2,13 +2,17 @@ import React, { Component } from 'react'
 import './Login.scss'
 import { loginUser } from '../../actions'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { cleanUser } from '../../helpers/cleanUser'
 
 export class Login extends Component {
     constructor() {
         super()
         this.state = {
             email: '',
-            password:''
+            password:'',
+            id: 10,
+            errorMsg: '',
         }
     }
 
@@ -22,16 +26,20 @@ export class Login extends Component {
         try {
             const response = await fetch('http://localhost:3000/api/users', {
             method: 'POST',
-            body: JSON.stringify({email: this.state.email, password: this.state.password}),
+            body: JSON.stringify({email: this.state.email, password: this.state.password, id: this.state.id}),
             headers: {
                 'Content-Type': 'application/json',
             } 
         })
         const user = await response.json()
-        this.props.loginUser(user.data)
+        const cleanedUser = cleanUser(user)
+        this.props.loginUser(cleanedUser)
         this.setState({email: '', password: ''})
         } catch (error) {
-            throw new Error(error.message)
+            this.setState({
+                errorMsg: 'User not found, check your email and password'
+            })
+            alert(this.state.errorMsg)
         }
     }
 
@@ -40,7 +48,7 @@ export class Login extends Component {
             <form onSubmit={this.handleSubmit}>
                 <input onChange={this.handleChange} name="email" value={this.state.email} />
                 <input onChange={this.handleChange} name="password" value={this.state.password} />
-                <button type='submit'>Login</button>
+                <NavLink to='/' type='submit' onClick={this.handleSubmit}>Login</NavLink>
             </form>
         )
     }
