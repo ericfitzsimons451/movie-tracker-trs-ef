@@ -7,7 +7,7 @@ import AllMovies from '../../components/AllMovies/AllMovies'
 import Header from '../../components/Header/Header'
 import Nav from '../../components/Nav/Nav'
 import Login from '../../containers/Login/Login'
-import { storeMovies}  from '../../actions/index'
+import { storeMovies }  from '../../actions/index'
 import { connect } from 'react-redux'
 
 export class App extends Component {
