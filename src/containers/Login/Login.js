@@ -4,10 +4,12 @@ import { loginUser } from '../../actions'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { cleanUser } from '../../helpers/cleanUser'
+import { Route, Redirect } from 'react-router-dom'
+import CreateNewUser from '../CreateNewUser/CreateNewUser'
 
 export class Login extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             name: '',
             email: '',
@@ -47,51 +49,60 @@ export class Login extends Component {
                 errorMsg: 'User not found, check your email and password'
             })
             alert(this.state.errorMsg)
+
         }
     }
 
-    createNewUser = async (e) => {
-        e.preventDefault()
-        try {
-            const response = await fetch('http://localhost:3000/api/users/new', {
-                method: 'POST',
-                body: JSON.stringify({
-                    name: this.state.newUserName, 
-                    email: this.state.newUserEmail, 
-                    password: this.state.newUserPassword, 
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            const newUser = await response.json()
-            this.setState({newUserName: '', newUserEmail: '', newUserPassword: ''})
-        } catch (error) {
-            this.setState({
-                errorMsg: 'Error creating new user.'
-            })
-            alert(this.state.errorMsg)
-        }
-    }
+    // createNewUser = async (e) => {
+    //     e.preventDefault()
+    //     try {
+    //         const response = await fetch('http://localhost:3000/api/users/new', {
+    //             method: 'POST',
+    //             body: JSON.stringify({
+    //                 name: this.state.newUserName, 
+    //                 email: this.state.newUserEmail, 
+    //                 password: this.state.newUserPassword, 
+    //             }),
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             }
+    //         })
+    //         const newUser = await response.json()
+    //         this.setState({newUserName: '', newUserEmail: '', newUserPassword: ''})
+    //     } catch (error) {
+    //         this.setState({
+    //             errorMsg: 'Error creating new user.'
+    //         })
+    //         alert(this.state.errorMsg)
+    //     }
+    // }
 
     render() {
+        // if (this.props.user.id) {
+        //     return <Redirect to='/movies' />
+        // } else {
+        console.log(this.props)
+        
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
+                    <h2>Sign In</h2>
                     <input onChange={this.handleChange} name="email" value={this.state.email} />
                     <input onChange={this.handleChange} name="password" value={this.state.password} />
                     <NavLink to='/' type='submit' onClick={this.handleSubmit}>Login</NavLink>
+                    <NavLink to='/login/newUser'>Create New User Account</NavLink>
                 </form>
-                <form onSubmit={this.createNewUser}>
-                    Name:<input onChange={this.handleChange} name="newUserName" value={this.state.newUserName} />
-                    Email:<input onChange={this.handleChange} name="newUserEmail" value={this.state.newUserEmail} />
-                    Password:<input onChange={this.handleChange} name="newUserPassword" value={this.state.newUserPassword} />
-                    <button>Sign up!</button>
-                </form>
+                <Route exact path='/login/newUser' render={ () => <CreateNewUser />} />
             </div>
+          
         )
+        // }
     }
 }
+
+export const mapStateToProps = (state) => ({
+    user: state.user
+})
 
 export const mapDispatchToProps = (dispatch) => ({
     loginUser: (user) => dispatch(loginUser(user))
