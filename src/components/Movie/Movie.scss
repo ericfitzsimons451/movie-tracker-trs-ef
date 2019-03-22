@@ -11,6 +11,9 @@
     padding-top: 16px;
     margin-bottom: 30px;
     border-bottom: solid #db0000 2px;
+    &:hover {
+        background-color: #2b2b2b;
+    }
     button {
         background-color: #141414;
         color: #ffffff;
@@ -19,12 +22,9 @@
         font-weight: bold;
         &:hover {
             color: #db0000;
+            cursor: pointer;
         }
     }
-}
-
-.movie-card:hover {
-    background-color: #2b2b2b;
 }
 
 .movie-details {
@@ -48,12 +48,7 @@
     padding: 0px 16px;
 }
 
-.release-date {
-    margin: 0px;
-    font-size: .75rem;
-    padding: 0px 16px;
-}
-
+.release-date,
 .vote-avg {
     margin: 0px;
     font-size: .75rem;

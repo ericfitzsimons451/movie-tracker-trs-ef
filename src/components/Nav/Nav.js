@@ -1,12 +1,29 @@
-import React from 'react'
+import React, { Component } from 'react'
 import './Nav.scss'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-const Nav = (props) => {
-    console.log(props)
-    let authLink; 
-    if (!props.user.user) {
+
+
+
+class Nav extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            isAuthenticated: false,
+        }
+    }
+
+    // const Authlink = withRouter(
+    //     ({ history }) => 
+    //         this.isAuthenticated ? (
+    //             <button>Sign Out</button>
+    //         ) : (
+    //             <button>Sign In</button>
+    //         ))
+    render = () => {
+        let authLink;
+        if (typeof this.props.user.id !== "number") {
             authLink= <NavLink to='/login' className='nav-link'>Sign In</NavLink>
         } else {
             authLink = <NavLink to='/' className='nav-link'>Sign Out</NavLink>
@@ -19,6 +36,7 @@ const Nav = (props) => {
             {authLink}
         </div>
     )
+    }
 }
 export const mapStateToProps = (state) => ({
     user: state.user

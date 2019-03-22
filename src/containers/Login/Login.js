@@ -9,10 +9,14 @@ export class Login extends Component {
     constructor() {
         super()
         this.state = {
+            name: '',
             email: '',
             password:'',
-            id: 10,
             errorMsg: '',
+            isAuthenticated: false,
+            newUserName: '',
+            newUserEmail: '',
+            newUserPassword: ''
         }
     }
 
@@ -26,7 +30,10 @@ export class Login extends Component {
         try {
             const response = await fetch('http://localhost:3000/api/users', {
             method: 'POST',
-            body: JSON.stringify({email: this.state.email, password: this.state.password, id: this.state.id}),
+            body: JSON.stringify({
+                email: this.state.email, 
+                password: this.state.password, 
+            }),
             headers: {
                 'Content-Type': 'application/json',
             } 
@@ -43,13 +50,45 @@ export class Login extends Component {
         }
     }
 
+    createNewUser = async (e) => {
+        e.preventDefault()
+        try {
+            const response = await fetch('http://localhost:3000/api/users/new', {
+                method: 'POST',
+                body: JSON.stringify({
+                    name: this.state.newUserName, 
+                    email: this.state.newUserEmail, 
+                    password: this.state.newUserPassword, 
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const newUser = await response.json()
+            this.setState({newUserName: '', newUserEmail: '', newUserPassword: ''})
+        } catch (error) {
+            this.setState({
+                errorMsg: 'Error creating new user.'
+            })
+            alert(this.state.errorMsg)
+        }
+    }
+
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <input onChange={this.handleChange} name="email" value={this.state.email} />
-                <input onChange={this.handleChange} name="password" value={this.state.password} />
-                <NavLink to='/' type='submit' onClick={this.handleSubmit}>Login</NavLink>
-            </form>
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                    <input onChange={this.handleChange} name="email" value={this.state.email} />
+                    <input onChange={this.handleChange} name="password" value={this.state.password} />
+                    <NavLink to='/' type='submit' onClick={this.handleSubmit}>Login</NavLink>
+                </form>
+                <form onSubmit={this.createNewUser}>
+                    Name:<input onChange={this.handleChange} name="newUserName" value={this.state.newUserName} />
+                    Email:<input onChange={this.handleChange} name="newUserEmail" value={this.state.newUserEmail} />
+                    Password:<input onChange={this.handleChange} name="newUserPassword" value={this.state.newUserPassword} />
+                    <button>Sign up!</button>
+                </form>
+            </div>
         )
     }
 }

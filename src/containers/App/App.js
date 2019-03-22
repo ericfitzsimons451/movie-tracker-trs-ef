@@ -38,13 +38,14 @@ export class App extends Component {
 
 
   render() {
+    // null or user:id
     return (
       <div className="App">
         <div className="header-container">
           <Header />
           <Nav />
         </div>
-        <Route exact path='/' className='display' render={ () => <AllMovies />} />
+        <Route exact path='/${}' className='display' render={ () => <AllMovies />} />
         <Route exact path='/login' className='display' render={ () => <Login />} /> 
       </div>
     );
