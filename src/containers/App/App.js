@@ -40,10 +40,12 @@ export class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
-        <Nav />
-        <Route exact path='/' render={ () => <AllMovies />} />
-        <Route exact path='/login' render={ () => <Login />} /> 
+        <div className="header-container">
+          <Header />
+          <Nav />
+        </div>
+        <Route exact path='/' className='display' render={ () => <AllMovies />} />
+        <Route exact path='/login' className='display' render={ () => <Login />} /> 
       </div>
     );
   }

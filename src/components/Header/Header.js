@@ -13,12 +13,10 @@ const Header = () => {
     }
 
     return (
-        <div className="header">
-            <div className="header-styling-container">
-                <h1>Luke Sperry's Movie Trrrrrrrrrracker</h1>
-                <p>Login</p>
-                <p>Sign-up</p>
-            </div>
+        <div className="logo">
+           
+                <h1>MOVIE TRACKER</h1>
+           
             {/* <button onClick={routeToLoginPage}>Login</button> */}
         </div>
     )
