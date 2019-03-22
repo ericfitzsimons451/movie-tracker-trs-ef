@@ -1,4 +1,6 @@
 import React from 'react'
+import './Header.scss'
+import './Header'
 
 const Header = () => {
 
@@ -11,8 +13,12 @@ const Header = () => {
     }
 
     return (
-        <div>
-            <h1>Luke Sperry's Movie Trrrrrrrrrracker</h1>
+        <div className="header">
+            <div className="header-styling-container">
+                <h1>Luke Sperry's Movie Trrrrrrrrrracker</h1>
+                <p>Login</p>
+                <p>Sign-up</p>
+            </div>
             {/* <button onClick={routeToLoginPage}>Login</button> */}
         </div>
     )
