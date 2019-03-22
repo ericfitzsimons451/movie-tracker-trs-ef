@@ -5,11 +5,10 @@ export const storeMovies = (movies) => ({
 
 export const loginUser = (userData) => ({
     type: 'LOGIN_USER',
-    userData,
-    loggedIn: true
+    userData
 })
 
-export const toggleLogin = () => ({
-    type: 'TOGGLE_LOGIN',
-    loggedIn: false
-})
+// export const toggleLogin = () => ({
+//     type: 'TOGGLE_LOGIN',
+//     loggedIn: false
+// })
