@@ -6,11 +6,11 @@ import PropTypes from 'prop-types'
 const Movie = ({ name, poster_path, release_date, vote_average, overview }) => {
     return (
         <div className='movie-card'>
-            <h3>{name}</h3>
-            <img src={`http://image.tmdb.org/t/p/original/${poster_path}`} alt="poster image" />
+            <img src={`http://image.tmdb.org/t/p/original/${poster_path}`} alt="poster" />
+            <h3 className="movie-title">{name}</h3>
             <h3>Released: {release_date}</h3>
             <h3>Vote Average: {vote_average}</h3>
-            <p>Overview: {overview}</p>
+            <p>{overview}</p>
             <button>Add To Favorites</button>
         </div>
     )

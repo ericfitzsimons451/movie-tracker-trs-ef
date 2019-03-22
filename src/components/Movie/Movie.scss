@@ -1,16 +1,28 @@
 .movie-card {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    width: 400px;
+    z-index: 10;
+    background: white;
+    width: 300px;
     min-height: 300px;
     border: 1px solid black;
     padding: 10px;
     margin: 5px;
+    border-radius: 10px;
     img {
-        width: 50%;
+        width: 80%;
+    }
+    button {
+        background-color: blueviolet;
     }
 }
+
+.movie-title {
+    font-size: 2rem;
+}
+
+
 
 
