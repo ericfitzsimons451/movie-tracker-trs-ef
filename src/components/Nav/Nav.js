@@ -7,15 +7,15 @@ const Nav = (props) => {
     console.log(props)
     let authLink; 
     if (!props.user.user) {
-            authLink= <NavLink to='/login'>Sign In</NavLink>
+            authLink= <NavLink to='/login' className='nav-link'>Sign In</NavLink>
         } else {
-            authLink = <NavLink to='/'>Sign Out</NavLink>
+            authLink = <NavLink to='/' className='nav-link'>Sign Out</NavLink>
         }
 
     return (
         <div className="nav-container">
-            <NavLink to='/' className="movies-link">Show Movies</NavLink>
-            <NavLink to='/favorites' className="favorites-link">Show Favorites</NavLink>
+            <NavLink to='/' className="nav-link">Show Movies</NavLink>
+            <NavLink to='/favorites' className="nav-link">Show Favorites</NavLink>
             {authLink}
         </div>
     )

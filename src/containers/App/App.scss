@@ -1,4 +1,27 @@
 .App {
-  text-align: center;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-areas:
+    "header-container" 
+    "display";
+  background-color: black;
+}
+
+.header-container, 
+.movie-display-container,
+.display {
+  max-width: 1300px;
+  margin: 0px 25px;
+}
+
+.header-container {
+  display: grid;
+  grid-template-rows: 125px;
+  grid-template-columns: 1fr 450px;
+}
+
+.display {
+  grid-area: display;
 }
 
