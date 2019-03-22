@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 export const AllMovies = ( {movies} ) => {
-    
+    console.log(movies)
     const allMovies = movies.map((movie) => {
         return (
             <Movie key={movie.id} {...movie} />
