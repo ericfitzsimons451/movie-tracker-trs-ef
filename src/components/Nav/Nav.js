@@ -3,6 +3,7 @@ import './Nav.scss'
 import { NavLink, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
+import { loginUser } from '../../actions'
 
 
 
@@ -14,6 +15,14 @@ class Nav extends Component {
         }
     }
 
+    signOut = (e) => {
+        const data = {
+            name: '',
+            email: '',
+        }
+        this.props.loginUser(data)
+    }
+
     render = () => {
         let welcomeMessage;
         let authLink;
@@ -21,7 +30,7 @@ class Nav extends Component {
             authLink= <NavLink to='/login' className='nav-link'>Sign In</NavLink>
         } else {
             welcomeMessage = <h3 className="nav-link">Welcome, {this.props.user.name}!</h3>     
-            authLink = <NavLink to='/' className='nav-link'>Sign Out</NavLink>
+            authLink = <NavLink to='/' className='nav-link' onClick={this.signOut}>Sign Out</NavLink>
         }
 
 
@@ -39,7 +48,11 @@ export const mapStateToProps = (state) => ({
     user: state.user
 })
 
-export default connect(mapStateToProps)(Nav)
+export const mapDispatchToProps = (dispatch) => ({
+    loginUser: (data) => dispatch(loginUser(data))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Nav)
 
 Nav.propTypes = {
     user: PropTypes.object,

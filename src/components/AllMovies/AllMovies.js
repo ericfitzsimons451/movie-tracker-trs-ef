@@ -18,7 +18,8 @@ export const AllMovies = ( {movies} ) => {
 }
 
 export const mapStateToProps = (state) => ({
-    movies: state.movies
+    movies: state.movies,
+    favorites: state.user.favorites
 })
 
 export default connect(mapStateToProps)(AllMovies)

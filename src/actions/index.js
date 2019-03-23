@@ -13,7 +13,8 @@ export const loginUser = (userData) => ({
     userData
 })
 
-// export const toggleLogin = () => ({
-//     type: 'TOGGLE_LOGIN',
-//     loggedIn: false
-// })
+export const addFavorite = (movieID) => ({
+    type: 'ADD_FAVORITE',
+    movieID
+})
+

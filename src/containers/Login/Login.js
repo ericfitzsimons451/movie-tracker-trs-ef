@@ -96,6 +96,7 @@ export class Login extends Component {
         const data = {
             name: this.state.newUserName,
             email: this.state.newUserEmail,
+            favorites: []
         }
         this.props.loginUser(data)
     }
