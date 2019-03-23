@@ -20,7 +20,8 @@ export class Login extends Component {
             isAuthenticated: false,
             newUserName: '',
             newUserEmail: '',
-            newUserPassword: ''
+            newUserPassword: '',
+            createUser: false
         }
     }
 
@@ -55,22 +56,88 @@ export class Login extends Component {
         this.setState({email: '', password: ''})
     }
 
+    updateState = () => {
+        this.setState({
+            createUser: true
+        })
+    }
+
+    createNewUser = async (e) => {
+        e.preventDefault()
+        try {
+            const response = await fetch('http://localhost:3000/api/users/new', {
+                method: 'POST',
+                body: JSON.stringify({
+                    name: this.state.newUserName, 
+                    email: this.state.newUserEmail, 
+                    password: this.state.newUserPassword, 
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            // const newUser = await response.json()
+            // console.log(newUser)
+            // const cleanedUser = cleanUser(newUser)
+
+            // const userToLogin = {
+            //     password: this.state.newUserPassword,
+            //     email: this.state.newUserEmail
+            // }
+            // this.props.loginUser(userToLogin)
+            // this.setState({newUserName: '', newUserEmail: '', newUserPassword: ''})
+        } catch (error) {
+            this.setState({
+                errorMsg: 'Error creating new user.'
+            })
+            alert(this.state.errorMsg)
+        }
+        this.loginNewUser()
+    }
+
+    loginNewUser = () => {
+        const data = {
+            name: this.state.newUserName,
+            email: this.state.newUserEmail,
+        }
+        this.props.loginUser(data)
+    }
+
     render() {
-        console.log(this.props)
-        if (this.props.user.id) {
+        let feedback;
+        let nameInput;
+        let logMeIn; 
+        let toggleForm;
+        let emailInput;
+        let passwordInput; 
+
+        if (this.state.createUser === false) {
+            feedback = <h3>Sign In Here</h3>
+            emailInput = <input onChange={this.handleChange} name="email" value={this.state.email} />
+            passwordInput = <input onChange={this.handleChange} name="password" value={this.state.password} />
+            logMeIn = <NavLink to='/' type='submit' onClick={this.handleSubmit}>I have an account</NavLink>
+            toggleForm = <NavLink to='/login' onClick={this.updateState}>I want to sign up</NavLink>
+        } else if (this.state.createUser === true) {
+            feedback = <h3>Create New Account</h3>
+            nameInput = <input onChange={this.handleChange} name='newUserName' value={this.state.newUserName} />
+            emailInput = <input onChange={this.handleChange} name="newUserEmail" value={this.state.newUserEmail} />
+            passwordInput = <input onChange={this.handleChange} name="newUserPassword" value={this.state.newUserPassword} />
+            logMeIn = <NavLink to='/' onClick={this.createNewUser}>Here's my info as a new user</NavLink>
+        }
+
+        if (this.props.user.email) {
             return <Redirect to='/' />
         } else {
-
             return (
                 <div>
                     <form onSubmit={this.handleSubmit}>
-                        <h2>Sign In</h2>
-                        <input onChange={this.handleChange} name="email" value={this.state.email} />
-                        <input onChange={this.handleChange} name="password" value={this.state.password} />
-                        <NavLink to='/' type='submit' onClick={this.handleSubmit}>Submit</NavLink>
-                        <NavLink to='/login/newUser'>Create New User Account</NavLink>
+                        {feedback}
+                        {nameInput}
+                        {emailInput}
+                        {passwordInput}
+                        {logMeIn}
+                        {toggleForm}
                     </form>
-                    <Route exact path='/login/newUser' render={ () => <CreateNewUser />} />
                 </div>   
             )
         }
