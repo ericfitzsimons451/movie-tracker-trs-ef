@@ -3,6 +3,11 @@ export const storeMovies = (movies) => ({
     movies
 })
 
+export const storeUsers = (allUsers) => ({
+    type: 'STORE_USERS',
+    allUsers
+})
+
 export const loginUser = (userData) => ({
     type: 'LOGIN_USER',
     userData

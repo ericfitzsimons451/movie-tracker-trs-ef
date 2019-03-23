@@ -7,13 +7,14 @@ import AllMovies from '../../components/AllMovies/AllMovies'
 import Header from '../../components/Header/Header'
 import Nav from '../../components/Nav/Nav'
 import Login from '../../containers/Login/Login'
-import { storeMovies }  from '../../actions/index'
+import { storeMovies, storeUsers }  from '../../actions/index'
 import { connect } from 'react-redux'
 
 export class App extends Component {
 
   componentDidMount() {
     this.fetchMovies()
+    this.fetchAllUsers()
   }
 
   fetchMovies = async () => {
@@ -36,6 +37,18 @@ export class App extends Component {
     return cleanedMovies;
   }
 
+  fetchAllUsers = async () => {
+    const url = 'http://localhost:3000/api/users'
+    const allUsers = await allPurposeFetch(url)
+    const cleanedUsers = this.cleanUsers(allUsers.data)
+    this.props.storeUsers(cleanedUsers)
+  }
+
+  cleanUsers = (allUsers) => {
+    return allUsers.map(user => {
+      return user.email;
+    })
+  }
 
   render() {
     return (
@@ -53,6 +66,7 @@ export class App extends Component {
 
 export const mapDispatchToProps = (dispatch) => ({
   storeMovies: (movies) => dispatch(storeMovies(movies)),
+  storeUsers: (allUsers) => dispatch(storeUsers(allUsers))
 })
 
 export default connect(null, mapDispatchToProps)(App);

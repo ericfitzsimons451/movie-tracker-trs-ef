@@ -48,7 +48,7 @@ export class Login extends Component {
         this.props.loginUser(cleanedUser)
         } catch (error) {
             this.setState({
-                errorMsg: 'User not found, check your email and password'
+                errorMsg: error.message.detail
             })
             alert(this.state.errorMsg)
             //should we refresh the page or redirect to the sign in ????
@@ -64,6 +64,8 @@ export class Login extends Component {
 
     createNewUser = async (e) => {
         e.preventDefault()
+        //if store.users includes this.state.newUser.email then this.state.errorMsg = that email is taken
+        //else try/catch
         try {
             const response = await fetch('http://localhost:3000/api/users/new', {
                 method: 'POST',
