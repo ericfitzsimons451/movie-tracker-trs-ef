@@ -43,34 +43,32 @@ export class Login extends Component {
         const user = await response.json()
         const cleanedUser = cleanUser(user)
         this.props.loginUser(cleanedUser)
-        this.setState({email: '', password: ''})
         } catch (error) {
             this.setState({
                 errorMsg: 'User not found, check your email and password'
             })
             alert(this.state.errorMsg)
-
+            //should we refresh the page or redirect to the sign in ????
         }
+        this.setState({email: '', password: ''})
     }
 
     render() {
-        console.log(this.props)
         if (this.props.user.id) {
-            return <Redirect to='/movies' />
+            return <Redirect to='/' />
         } else {
-                        
+
             return (
                 <div>
                     <form onSubmit={this.handleSubmit}>
                         <h2>Sign In</h2>
                         <input onChange={this.handleChange} name="email" value={this.state.email} />
                         <input onChange={this.handleChange} name="password" value={this.state.password} />
-                        <NavLink to='/' type='submit' onClick={this.handleSubmit}>Login</NavLink>
+                        <NavLink to='/' type='submit' onClick={this.handleSubmit}>Submit</NavLink>
                         <NavLink to='/login/newUser'>Create New User Account</NavLink>
                     </form>
                     <Route exact path='/login/newUser' render={ () => <CreateNewUser />} />
-                </div>
-            
+                </div>   
             )
         }
     }
