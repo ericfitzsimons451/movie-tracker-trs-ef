@@ -76,19 +76,9 @@ export class Login extends Component {
                     'Content-Type': 'application/json'
                 }
             })
-            // const newUser = await response.json()
-            // console.log(newUser)
-            // const cleanedUser = cleanUser(newUser)
-
-            // const userToLogin = {
-            //     password: this.state.newUserPassword,
-            //     email: this.state.newUserEmail
-            // }
-            // this.props.loginUser(userToLogin)
-            // this.setState({newUserName: '', newUserEmail: '', newUserPassword: ''})
         } catch (error) {
             this.setState({
-                errorMsg: 'Error creating new user.'
+                errorMsg: error
             })
             alert(this.state.errorMsg)
         }
@@ -113,15 +103,15 @@ export class Login extends Component {
 
         if (this.state.createUser === false) {
             feedback = <h3>Sign In Here</h3>
-            emailInput = <input onChange={this.handleChange} name="email" value={this.state.email} />
-            passwordInput = <input onChange={this.handleChange} name="password" value={this.state.password} />
+            emailInput = <input onChange={this.handleChange} name="email" type="email" value={this.state.email} />
+            passwordInput = <input onChange={this.handleChange} name="password" type="password" value={this.state.password} />
             logMeIn = <NavLink to='/' type='submit' onClick={this.handleSubmit}>I have an account</NavLink>
             toggleForm = <NavLink to='/login' onClick={this.updateState}>I want to sign up</NavLink>
         } else if (this.state.createUser === true) {
             feedback = <h3>Create New Account</h3>
             nameInput = <input onChange={this.handleChange} name='newUserName' value={this.state.newUserName} />
-            emailInput = <input onChange={this.handleChange} name="newUserEmail" value={this.state.newUserEmail} />
-            passwordInput = <input onChange={this.handleChange} name="newUserPassword" value={this.state.newUserPassword} />
+            emailInput = <input onChange={this.handleChange} name="newUserEmail" type="email" value={this.state.newUserEmail} />
+            passwordInput = <input onChange={this.handleChange} name="newUserPassword" type="password" value={this.state.newUserPassword} />
             logMeIn = <NavLink to='/' onClick={this.createNewUser}>Here's my info as a new user</NavLink>
         }
 
@@ -137,6 +127,7 @@ export class Login extends Component {
                         {passwordInput}
                         {logMeIn}
                         {toggleForm}
+                        {this.state.errorMsg}
                     </form>
                 </div>   
             )

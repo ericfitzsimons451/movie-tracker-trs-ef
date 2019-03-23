@@ -14,28 +14,21 @@ class Nav extends Component {
         }
     }
 
-    // const Authlink = withRouter(
-    //     ({ history }) => 
-    //         this.isAuthenticated ? (
-    //             <button>Sign Out</button>
-    //         ) : (
-    //             <button>Sign In</button>
-    //         ))
     render = () => {
         let welcomeMessage;
         let authLink;
-        if (typeof this.props.user.id !== "number") {
+        if (!this.props.user.email) {
             authLink= <NavLink to='/login' className='nav-link'>Sign In</NavLink>
         } else {
             welcomeMessage = <h3 className="nav-link">Welcome, {this.props.user.name}!</h3>     
-            authLink = <NavLink to='/movies' className='nav-link'>Sign Out</NavLink>
+            authLink = <NavLink to='/' className='nav-link'>Sign Out</NavLink>
         }
 
 
     return (
         <div className="nav-container">
             {welcomeMessage}
-            <NavLink to='/movies' className="nav-link">Show Movies</NavLink>
+            <NavLink to='/' className="nav-link">Show Movies</NavLink>
             <NavLink to='/favorites' className="nav-link">Show Favorites</NavLink>
             {authLink}
         </div>
