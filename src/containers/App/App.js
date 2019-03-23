@@ -45,7 +45,6 @@ export class App extends Component {
           <Nav />
         </div>
         <Route exact path='/' className='display' render={ () => <AllMovies />} />
-        {/* <Route exact path='/movies' className='display' render={ () => <AllMovies />} /> */}
         <Route path='/login' className='display' render={ () => <Login />} /> 
       </div>
     );

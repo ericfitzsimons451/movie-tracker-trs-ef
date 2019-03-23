@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './Nav.scss'
 import { NavLink, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-
+import { PropTypes } from 'prop-types'
 
 
 
@@ -47,3 +47,8 @@ export const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps)(Nav)
+
+Nav.propTypes = {
+    user: PropTypes.object,
+    dispatch: PropTypes.func
+}

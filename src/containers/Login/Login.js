@@ -6,6 +6,8 @@ import { NavLink } from 'react-router-dom'
 import { cleanUser } from '../../helpers/cleanUser'
 import { Route, Redirect } from 'react-router-dom'
 import CreateNewUser from '../CreateNewUser/CreateNewUser'
+import { PropTypes } from 'prop-types'
+
 
 export class Login extends Component {
     constructor(props) {
@@ -54,6 +56,7 @@ export class Login extends Component {
     }
 
     render() {
+        console.log(this.props)
         if (this.props.user.id) {
             return <Redirect to='/' />
         } else {
@@ -83,3 +86,8 @@ export const mapDispatchToProps = (dispatch) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
+
+Login.propTypes = {
+    loginUser: PropTypes.func,
+    user: PropTypes.object
+}
