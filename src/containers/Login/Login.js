@@ -64,27 +64,32 @@ export class Login extends Component {
 
     createNewUser = async (e) => {
         e.preventDefault()
-        //if store.users includes this.state.newUser.email then this.state.errorMsg = that email is taken
-        //else try/catch
-        try {
-            const response = await fetch('http://localhost:3000/api/users/new', {
-                method: 'POST',
-                body: JSON.stringify({
-                    name: this.state.newUserName, 
-                    email: this.state.newUserEmail, 
-                    password: this.state.newUserPassword, 
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-        } catch (error) {
+        if (this.props.allUsers.includes(this.state.newUserEmail)) {
             this.setState({
-                errorMsg: error
-            })
-            alert(this.state.errorMsg)
+                errorMsg: 'That email already exists'
+            }, () => { alert(this.state.errorMsg) })
+            
+        } else {
+            try {
+                const response = await fetch('http://localhost:3000/api/users/new', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name: this.state.newUserName, 
+                        email: this.state.newUserEmail, 
+                        password: this.state.newUserPassword, 
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+            } catch (error) {
+                this.setState({
+                    errorMsg: error
+                })
+                alert(this.state.errorMsg)
+            }
+                this.loginNewUser()
         }
-        this.loginNewUser()
     }
 
     loginNewUser = () => {
@@ -138,7 +143,8 @@ export class Login extends Component {
 }
 
 export const mapStateToProps = (state) => ({
-    user: state.user
+    user: state.user,
+    allUsers: state.allUsers
 })
 
 export const mapDispatchToProps = (dispatch) => ({
