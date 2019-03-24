@@ -21,8 +21,7 @@ export class App extends Component {
     const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
     const movies = await allPurposeFetch(url)
     const cleanedMovies = this.cleanMovies(movies.results)
-    this.props.storeMovies(cleanedMovies)
-    
+    this.props.storeMovies(cleanedMovies) 
   }
 
   cleanMovies = (movies) => {

@@ -5,5 +5,4 @@ export const favoritesReducer = (state=[], action) => {
       default: 
           return state
   }
-  
 }

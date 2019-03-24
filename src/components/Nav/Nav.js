@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import { loginUser, setErrorMessage, storeFavorites } from '../../actions'
 import allPurposeFetch from '../../allPurposeFetch';
-import { displayFavorites } from '../AllMovies/AllMovies'
 
 const Nav = (props) => {
 
@@ -41,28 +40,20 @@ const Nav = (props) => {
             array.forEach((favorite) => {
                 if (favorite.movie_id === movie.id) {
                     favs.push(movie)
-                }
-             
+                } 
             })
-        // displayFavorites(favs)
-        // console.log(favs)
-        //return array of movies that match
         })
         return favs;
     }
-    
-
-
-    
-        let welcomeMessage;
-        let authLink;
-        if (!props.user.email) {
-            authLink= <NavLink to='/login' className='nav-link'>Sign In</NavLink>
-        } else {
-            welcomeMessage = <h3 className="nav-link">Welcome, {props.user.name}!</h3>     
-            authLink = <NavLink to='/' className='nav-link' onClick={signOut}>Sign Out</NavLink>
-        }
-
+        
+    let welcomeMessage;
+    let authLink;
+    if (!props.user.email) {
+        authLink= <NavLink to='/login' className='nav-link'>Sign In</NavLink>
+    } else {
+        welcomeMessage = <h3 className="nav-link">Welcome, {props.user.name}!</h3>     
+        authLink = <NavLink to='/' className='nav-link' onClick={signOut}>Sign Out</NavLink>
+    }
 
     return (
         <div className="nav-container">
@@ -72,7 +63,6 @@ const Nav = (props) => {
             {welcomeMessage}
         </div>
     )
-    
 }
 export const mapStateToProps = (state) => ({
     user: state.user,

@@ -4,7 +4,7 @@ import { loginUser } from '../../actions'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { cleanUser } from '../../helpers/cleanUser'
-import { Route, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { PropTypes } from 'prop-types'
 
 
@@ -49,7 +49,6 @@ export class Login extends Component {
                 errorMsg: error.message.detail
             })
             alert(this.state.errorMsg)
-            //should we refresh the page or redirect to the sign in ????
         }
         this.setState({email: '', password: ''})
     }
@@ -65,11 +64,10 @@ export class Login extends Component {
         if (this.props.allUsers.includes(this.state.newUserEmail)) {
             this.setState({
                 errorMsg: 'That email already exists'
-            }, () => { alert(this.state.errorMsg) })
-            
+            }, () => { alert(this.state.errorMsg) })   
         } else {
             try {
-                const response = await fetch('http://localhost:3000/api/users/new', {
+                await fetch('http://localhost:3000/api/users/new', {
                     method: 'POST',
                     body: JSON.stringify({
                         name: this.state.newUserName, 
