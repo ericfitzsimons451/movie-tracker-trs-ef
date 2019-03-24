@@ -1,4 +1,5 @@
 .App {
+  margin: auto;
   height: 100%;
   width: 100%;
   display: grid;
@@ -11,7 +12,7 @@
 .header-container, 
 .movie-display-container,
 .display {
-  max-width: 1300px;
+  max-width: 1500px;
   margin: 0px 25px;
 }
 

@@ -36,10 +36,10 @@ class Nav extends Component {
 
     return (
         <div className="nav-container">
-            {welcomeMessage}
-            <NavLink to='/' className="nav-link">Show Movies</NavLink>
-            <NavLink to='/favorites' className="nav-link">Show Favorites</NavLink>
+            <NavLink to='/' className="nav-link">Movies</NavLink>
+            <NavLink to='/favorites' className="nav-link">Favorites</NavLink>
             {authLink}
+            {welcomeMessage}
         </div>
     )
     }
