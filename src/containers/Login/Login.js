@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { cleanUser } from '../../helpers/cleanUser'
 import { Route, Redirect } from 'react-router-dom'
-import CreateNewUser from '../CreateNewUser/CreateNewUser'
 import { PropTypes } from 'prop-types'
 
 

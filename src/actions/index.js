@@ -18,3 +18,8 @@ export const addFavorite = (movieID) => ({
     movieID
 })
 
+export const setErrorMessage = (message) => ({
+    type: 'SET_ERROR_MESSAGE',
+    message
+})
+
