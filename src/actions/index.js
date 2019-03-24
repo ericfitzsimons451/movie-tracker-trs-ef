@@ -3,12 +3,18 @@ export const storeMovies = (movies) => ({
     movies
 })
 
+export const storeUsers = (allUsers) => ({
+    type: 'STORE_USERS',
+    allUsers
+})
+
 export const loginUser = (userData) => ({
     type: 'LOGIN_USER',
     userData
 })
 
-// export const toggleLogin = () => ({
-//     type: 'TOGGLE_LOGIN',
-//     loggedIn: false
-// })
+export const addFavorite = (movieID) => ({
+    type: 'ADD_FAVORITE',
+    movieID
+})
+
