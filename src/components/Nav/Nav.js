@@ -3,7 +3,7 @@ import './Nav.scss'
 import { NavLink, Redirect, Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
-import { loginUser, setErrorMessage } from '../../actions'
+import { loginUser, setErrorMessage, displayFavorites } from '../../actions'
 import allPurposeFetch from '../../allPurposeFetch';
 import Login from '../../containers/Login/Login'
 
@@ -37,10 +37,10 @@ class Nav extends Component {
     fetchFavoriteMovies = async () => {
         const url = `http://localhost:3000/api/users/${this.props.user.id}/favorites`
         const favorites = await allPurposeFetch(url)
-        this.displayFavorites(favorites.data)
+        this.props.displayFavorites(favorites.data)
     }
 
-    
+
 
     render = () => {
         let welcomeMessage;
@@ -64,12 +64,14 @@ class Nav extends Component {
     }
 }
 export const mapStateToProps = (state) => ({
-    user: state.user
+    user: state.user,
+    favorites: state.favorites
 })
 
 export const mapDispatchToProps = (dispatch) => ({
     loginUser: (data) => dispatch(loginUser(data)),
-    setErrorMessage: (message) => dispatch(setErrorMessage(message))
+    setErrorMessage: (message) => dispatch(setErrorMessage(message)),
+    displayFavorites: (allFavorites) => dispatch(displayFavorites(allFavorites))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Nav))

@@ -24,6 +24,16 @@ const Movie = ({user, id, name, poster_path, release_date, vote_average, overvie
                 'Content-Type': 'application/json'
             }
         })
+        // const movieToFavorite = {
+        //         id,
+        //         name,
+        //         poster_path,
+        //         release_date,
+        //         vote_average,
+        //         overview, 
+        // }
+        // console.log(movieToFavorite)
+        // this.props.storeFavorite(movieToFavorite)
     }
     
     return (
