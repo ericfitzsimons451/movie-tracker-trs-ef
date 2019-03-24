@@ -17,7 +17,6 @@ export class Login extends Component {
             email: '',
             password:'',
             errorMsg: '',
-            isAuthenticated: false,
             newUserName: '',
             newUserEmail: '',
             newUserPassword: '',
@@ -86,7 +85,6 @@ export class Login extends Component {
                 this.setState({
                     errorMsg: error
                 })
-                alert(this.state.errorMsg)
             }
                 this.loginNewUser()
         }
@@ -103,24 +101,36 @@ export class Login extends Component {
 
     render() {
         let feedback;
+        let nameLabel;
         let nameInput;
-        let logMeIn; 
+        let emailName;
+        let emailValue;
+        let passwordName;
+        let passwordValue;
+        let signInBtn; 
+        let signInMsg;
         let toggleForm;
-        let emailInput;
-        let passwordInput; 
 
         if (this.state.createUser === false) {
-            feedback = <h3>Sign In Here</h3>
-            emailInput = <input onChange={this.handleChange} name="email" type="email" value={this.state.email} />
-            passwordInput = <input onChange={this.handleChange} name="password" type="password" value={this.state.password} />
-            logMeIn = <NavLink to='/' type='submit' onClick={this.handleSubmit}>I have an account</NavLink>
-            toggleForm = <NavLink to='/login' onClick={this.updateState}>I want to sign up</NavLink>
+            feedback = 'Sign In';
+            nameLabel = '';
+            emailName = 'email';
+            emailValue = this.state.email;
+            passwordName = 'password';
+            passwordValue = this.state.password;
+            signInBtn = this.handleSubmit;
+            signInMsg = 'Submit';
+            toggleForm = <NavLink to='/login' onClick={this.updateState} className='login-btn'>Create an Account</NavLink>
         } else if (this.state.createUser === true) {
-            feedback = <h3>Create New Account</h3>
+            feedback = 'Create an Account';
+            nameLabel = 'Name'
             nameInput = <input onChange={this.handleChange} name='newUserName' value={this.state.newUserName} />
-            emailInput = <input onChange={this.handleChange} name="newUserEmail" type="email" value={this.state.newUserEmail} />
-            passwordInput = <input onChange={this.handleChange} name="newUserPassword" type="password" value={this.state.newUserPassword} />
-            logMeIn = <NavLink to='/' onClick={this.createNewUser}>Here's my info as a new user</NavLink>
+            emailName = 'newUserEmail';
+            emailValue = this.state.newUserEmail;
+            passwordName = 'newUserPassword';
+            passwordValue = this.state.newUserPassword;
+            signInBtn = this.createNewUser;
+            signInMsg = 'Submit'
         }
 
         if (this.props.user.email) {
@@ -128,14 +138,28 @@ export class Login extends Component {
         } else {
             return (
                 <div>
-                    <form onSubmit={this.handleSubmit}>
-                        {feedback}
-                        {nameInput}
-                        {emailInput}
-                        {passwordInput}
-                        {logMeIn}
-                        {toggleForm}
-                        {this.state.errorMsg}
+                    <form className='login-form' onSubmit={this.handleSubmit}>
+                        <h3 className='feedback'>{feedback}</h3>
+                        <div className='name-input'>
+                            <label for='newUserName'>{nameLabel}</label>
+                            {nameInput}
+                        </div>
+                        <div className='email-input'>
+                            <label for={emailName}>Email</label>
+                            <input onChange={this.handleChange} name={emailName} type="email" value={emailValue} />
+                        </div>
+                        <div className='password-input'>
+                            <label for={passwordName}>Password</label>
+                            <input onChange={this.handleChange} name={passwordName} type="password" value={passwordValue} />
+                        </div>
+                        
+                        <div className='login-btns'>
+                            <p className='error-msg'>
+                                {this.state.errorMsg}
+                            </p>
+                            <NavLink to='/' type='submit' onClick={signInBtn} className='login-btn'>{signInMsg}</NavLink>
+                            {toggleForm}
+                        </div>
                     </form>
                 </div>   
             )

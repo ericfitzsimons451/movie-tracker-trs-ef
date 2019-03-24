@@ -1,10 +1,17 @@
 .nav-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+    text-align: right;
 }
 
 .nav-link {
-    font-size: 1.3rem;
+    font-size: 1rem;
     color: white;
+    text-decoration: none;
+    cursor: pointer;
+    width: 100px;
+        &:hover {
+            color: #db0000;
+        }
 }
