@@ -13,14 +13,8 @@ export const loginUser = (userData) => ({
     userData
 })
 
-// export const addFavorite = (movieID) => ({
-//     // This posts favorites to backend
-//     type: 'ADD_FAVORITE',
-//     movieID
-// })
-
-export const displayFavorites = (favorites) => ({
-    type: 'DISPLAY_FAVORITES',
+export const storeFavorites = (favorites) => ({
+    type: 'STORE_FAVORITES',
     favorites
 })
 
