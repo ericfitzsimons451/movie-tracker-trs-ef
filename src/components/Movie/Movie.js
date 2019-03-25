@@ -3,13 +3,11 @@ import './Movie.scss'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-
-
 const Movie = ({user, id, name, poster_path, release_date, vote_average, overview}) => {
   
     const addFavorite = async () => {
         const url = 'http://localhost:3000/api/users/favorites/new'
-        const response = await fetch(url, {
+        await fetch(url, {
             method: 'POST',
             body: JSON.stringify({
                 user_id: user.id,

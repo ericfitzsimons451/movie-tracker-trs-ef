@@ -21,8 +21,7 @@ export class App extends Component {
     const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
     const movies = await allPurposeFetch(url)
     const cleanedMovies = this.cleanMovies(movies.results)
-    this.props.storeMovies(cleanedMovies)
-    
+    this.props.storeMovies(cleanedMovies) 
   }
 
   cleanMovies = (movies) => {
@@ -57,16 +56,22 @@ export class App extends Component {
           <Header />
           <Nav />
         </div>
-        <Route exact path='/' className='display' render={ () => <AllMovies />} />
+        <Route exact path='/' className='display' render={ () => <AllMovies movies={this.props.movies} />} />
         <Route path='/login' className='display' render={ () => <Login />} /> 
+        <Route exact path='/favorites' className='display' render={ () => <AllMovies movies={this.props.favorites} />} />
       </div>
     );
   }
 }
+
+export const mapStateToProps = (state) => ({
+    movies: state.movies, 
+    favorites: state.favorites
+})
 
 export const mapDispatchToProps = (dispatch) => ({
   storeMovies: (movies) => dispatch(storeMovies(movies)),
   storeUsers: (allUsers) => dispatch(storeUsers(allUsers))
 })
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

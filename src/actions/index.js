@@ -13,8 +13,13 @@ export const loginUser = (userData) => ({
     userData
 })
 
-export const addFavorite = (movieID) => ({
-    type: 'ADD_FAVORITE',
-    movieID
+export const storeFavorites = (favorites) => ({
+    type: 'STORE_FAVORITES',
+    favorites
+})
+
+export const setErrorMessage = (message) => ({
+    type: 'SET_ERROR_MESSAGE',
+    message
 })
 
