@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './Nav.scss'
 import { NavLink, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
-import { loginUser, setErrorMessage, storeFavorites } from '../../actions'
-import allPurposeFetch from '../../allPurposeFetch';
+import { loginUser, setErrorMessage } from '../../actions'
 
 const Nav = (props) => {
 
@@ -22,28 +21,8 @@ const Nav = (props) => {
             props.setErrorMessage('You must be signed in to view favorites')
             history.push('/login')
         } else {
-            await fetchFavoriteMovies()
             await history.push('/favorites')
         }
-    }
-
-    const fetchFavoriteMovies = async () => {
-        const url = `http://localhost:3000/api/users/${props.user.id}/favorites`
-        const favorites = await allPurposeFetch(url)
-        const favs = filterFavorites(favorites.data)
-        props.storeFavorites(favs)
-    }
-
-    const filterFavorites = (array) => {
-        const favs = []
-        props.movies.forEach((movie) => {
-            array.forEach((favorite) => {
-                if (favorite.movie_id === movie.id) {
-                    favs.push(movie)
-                } 
-            })
-        })
-        return favs;
     }
         
     let welcomeMessage;
@@ -73,7 +52,6 @@ export const mapStateToProps = (state) => ({
 export const mapDispatchToProps = (dispatch) => ({
     loginUser: (data) => dispatch(loginUser(data)),
     setErrorMessage: (message) => dispatch(setErrorMessage(message)),
-    storeFavorites: (favorites) => dispatch(storeFavorites(favorites))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Nav))

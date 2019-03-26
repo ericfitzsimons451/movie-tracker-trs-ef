@@ -10,5 +10,5 @@ export const rootReducer = combineReducers({
     user: userReducer,
     allUsers: allUsersReducer,
     message: errorMessageReducer,
-    favorites: favoritesReducer
+    favorites: favoritesReducer,
 })

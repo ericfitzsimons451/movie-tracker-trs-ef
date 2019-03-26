@@ -18,6 +18,16 @@ export const storeFavorites = (favorites) => ({
     favorites
 })
 
+export const storeNewFavorite = (newFavorite) => ({
+    type: 'STORE_NEW_FAVORITE',
+    newFavorite
+})
+
+export const removeFavoriteFromStore = (index) => ({
+    type: 'REMOVE_FAVORITE_FROM_STORE',
+    index
+})
+
 export const setErrorMessage = (message) => ({
     type: 'SET_ERROR_MESSAGE',
     message

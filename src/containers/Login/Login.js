@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import './Login.scss'
-import { loginUser } from '../../actions'
+import { loginUser, storeFavorites } from '../../actions'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { cleanUser } from '../../helpers/cleanUser'
 import { Redirect } from 'react-router-dom'
 import { PropTypes } from 'prop-types'
+import allPurposeFetch from '../../allPurposeFetch'
 
 
 export class Login extends Component {
@@ -44,6 +45,7 @@ export class Login extends Component {
         const user = await response.json()
         const cleanedUser = cleanUser(user)
         this.props.loginUser(cleanedUser)
+        this.fetchFavoriteMovies()
         } catch (error) {
             this.setState({
                 errorMsg: error.message.detail
@@ -51,6 +53,25 @@ export class Login extends Component {
             alert(this.state.errorMsg)
         }
         this.setState({email: '', password: ''})
+    }
+
+    fetchFavoriteMovies = async () => {
+        const url = `http://localhost:3000/api/users/${this.props.user.id}/favorites`
+        const favorites = await allPurposeFetch(url)
+        const favs = this.filterFavorites(favorites.data)
+        this.props.storeFavorites(favs)
+    }
+
+    filterFavorites = (array) => {
+        const favs = []
+        this.props.movies.forEach((movie) => {
+            array.forEach((favorite) => {
+                if (favorite.movie_id === movie.id) {
+                    favs.push(movie)
+                } 
+            })
+        })
+        return favs;
     }
 
     updateState = () => {
@@ -166,11 +187,13 @@ export class Login extends Component {
 
 export const mapStateToProps = (state) => ({
     user: state.user,
-    allUsers: state.allUsers
+    allUsers: state.allUsers,
+    movies: state.movies
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-    loginUser: (user) => dispatch(loginUser(user))
+    loginUser: (user) => dispatch(loginUser(user)),
+    storeFavorites: (favorites) => dispatch(storeFavorites(favorites))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
