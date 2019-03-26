@@ -1,31 +1,24 @@
-import { userReducer } from './userReducer'
-import * as actions from '../actions'
+import { userReducer } from "./userReducer";
 
-describe('userReducer', () => {
-    it('should return state as a default', () => {
-        const initialState = {}
-        const mockUserData = {
-            email: 'asdf@as;ldkf.com',
-            password: 123344
-        }
-        const action = {}
-        const result = userReducer(initialState, action)
-        expect(result).toEqual(initialState)
-    })
+describe("userReducer", () => {
+  it("should return default state if there is no action.type", () => {
+    const initialState = {};
+    const action = {};
+    const results = userReducer(initialState, action);
+    expect(results).toEqual(initialState);
+  });
 
-    it('should return an object with all user data if the type is LOGIN_USER', () => {
-        const initialState = {}
-        const mockUserData = {
-            email: 'asdf@asdf.com',
-            password: 43221,
-        }
-        const action = actions.loginUser(mockUserData)
-        const expected = {
-            email: 'asdf@asdf.com',
-            password: 43221,
-        }
-        const result = userReducer(initialState, action)
-        expect(result).toEqual(expected)
-
-    })
-})
+  it("should return an object with all user data if the type is LOGIN_USER", () => {
+    const initialState = {};
+    const action = {type: 'LOGIN_USER', userData: {
+      email: "asdf@asdf.com",
+      password: 43221}
+    };
+    const expected = {
+      email: "asdf@asdf.com",
+      password: 43221
+    };
+    const results = userReducer(initialState, action);
+    expect(results).toEqual(expected);
+  });
+});

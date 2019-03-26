@@ -1,21 +1,39 @@
-import { AllMovies, mapStateToProps } from './AllMovies'
+import React from 'react'
+import Movie from '../Movie/Movie'
+import { AllMovies } from '../AllMovies/AllMovies';
 
-describe('AllMovies', () => {
-    describe('AllMovies', () => {
-    //it . . . 
+describe("AllMovies", () => {
+  describe('allMovies', () => {
+    it('should match the snapshot with a MOVIES array passed down', () => {
+      const mockMovies = {movies:[
+        {
+          name: "How to Train Your Dragon: The Hidden World",
+          id: 166428,
+          poster_path: "/xvx4Yhf0DVH8G4LzNISpMfFBDy2.jpg",
+          release_date: "2019-01-03",
+          vote_average: 7.8,
+          overview:
+          "As Hiccup fulfills his dream of creating a peaceful dragon utopia, Toothless’ discovery of an untamed, elusive mate draws the Night Fury away. When danger mounts at home and Hiccup’s reign as village chief is tested, both dragon and rider must make impossible decisions to save their kind."
+        },
+        {
+          name: "Master Z: Ip Man Legacy",
+          id: 450001,
+          poster_path: "/2WfjB6FUDTIBVI2y02UGbnHR82s.jpg",
+          release_date: "2018-12-20",
+          vote_average: 5.5,
+          overview:
+          "After being defeated by Ip Man, Cheung Tin Chi is attempting to keep a low profile. While going about his business, he gets into a fight with a foreigner by the name of Davidson, who is a big boss behind the bar district. Tin Chi fights hard with Wing Chun and earns respect."
+        }
+      ]}
+      const movieCards = mockMovies.movies.map((movie) => {
+        return <Movie key={movie.id} {...movie} />
+      }) 
+      const expected = <div className="movie-display-container">{movieCards}</div>
+      const results = AllMovies(mockMovies)
+      expect(results).toEqual(expected)
     })
-    describe('mapStateToProps', () => {
-        it('should pass a movies array as props from the store to the container', () => {
-            //setup
-            const mockMovies = [{title: 'Aquaman'}, {title: 'Triple Frontier'}]
-            const mockState = {movies: mockMovies, dummy: 'dummy'}
-            const expected = {movies: mockMovies}
 
-            //execution
-            const mappedProps = mapStateToProps(mockState)
-
-            //expectation
-            expect(mappedProps).toEqual(expected)
-        })
-    })
-})
+     
+   
+  })
+});

@@ -1,8 +1,8 @@
-export const favoritesReducer = (state=[], action) => {
+export const favoritesReducer = (state = [], action) => {
   switch (action.type) {
-      case 'STORE_FAVORITES':
-          return action.favorites
-      default: 
-          return state
+    case "STORE_FAVORITES":
+      return action.favorites;
+    default:
+      return state;
   }
-}
+};
