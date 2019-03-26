@@ -28,8 +28,8 @@ export const removeFavoriteFromStore = (index) => ({
     index
 })
 
-export const setErrorMessage = (message) => ({
-    type: 'SET_ERROR_MESSAGE',
+export const setLoginError = (message) => ({
+    type: 'SET_LOGIN_ERROR',
     message
 })
 

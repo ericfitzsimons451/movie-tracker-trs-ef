@@ -62,7 +62,6 @@ export const Movie = (props) => {
             }
         })
         findItemToRemove()
-        // removeFavoriteFromStore(movie)
     }
 
     const findItemToRemove = () => {

@@ -2,7 +2,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    text-align: right;
+    text-align: center;
 }
 
 .nav-link {
@@ -14,4 +14,20 @@
         &:hover {
             color: #db0000;
         }
+}
+
+.nav-btn {
+    background-color: transparent;
+    color: white;
+    border: none;
+    text-align: center;
+    font-size: 1rem;
+        &:hover {
+            color: #db0000;
+        }
+}
+
+.welcome {
+    font-size: 1rem;
+    color: white;
 }

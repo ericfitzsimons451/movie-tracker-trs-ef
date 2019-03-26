@@ -173,7 +173,7 @@ export class Login extends Component {
                         
                         <div className='login-btns'>
                             <p className='error-msg'>
-                                {this.state.errorMsg}
+                                {this.props.errorMsg}
                             </p>
                             <NavLink to='/' type='submit' onClick={signInBtn} className='login-btn'>{signInMsg}</NavLink>
                             {toggleForm}
@@ -188,7 +188,8 @@ export class Login extends Component {
 export const mapStateToProps = (state) => ({
     user: state.user,
     allUsers: state.allUsers,
-    movies: state.movies
+    movies: state.movies,
+    errorMsg: state.message,
 })
 
 export const mapDispatchToProps = (dispatch) => ({
