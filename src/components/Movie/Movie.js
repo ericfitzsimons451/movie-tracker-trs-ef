@@ -5,7 +5,7 @@ import { storeNewFavorite, removeFavoriteFromStore } from '../../actions'
 import { connect } from 'react-redux'
 
 export const Movie = (props) => {
-
+console.log(props.favorites)
     let movie = {
         id: props.id, 
         name: props.name, 
@@ -29,6 +29,7 @@ export const Movie = (props) => {
         if (!alreadyFav) {
             addFavorite()
         } else {
+            btn = "Add to Favorites"
             removeFavorite()
         }
     }
@@ -51,6 +52,7 @@ export const Movie = (props) => {
             }
         })
         props.storeNewFavorite(movie)
+        //redirect to root path
     }
 
     const removeFavorite = async () => {

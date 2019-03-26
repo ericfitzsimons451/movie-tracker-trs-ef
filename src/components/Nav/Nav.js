@@ -21,6 +21,7 @@ const Nav = (props) => {
             props.setLoginError('You must be signed in to view favorites')
             history.push('/login')
         } else {
+            props.setLoginError('')
             await history.push('/favorites')
         }
     }
