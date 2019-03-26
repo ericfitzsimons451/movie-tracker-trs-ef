@@ -1,9 +1,9 @@
-import { combineReducers } from 'redux';
-import { moviesReducer } from './moviesReducer';
-import { userReducer } from './userReducer';
-import { allUsersReducer } from './allUsersReducer'
-import { errorMessageReducer } from './errorMessageReducer'
-import { favoritesReducer } from './favoritesReducer'
+import { combineReducers } from "redux";
+import { moviesReducer } from "./moviesReducer";
+import { userReducer } from "./userReducer";
+import { allUsersReducer } from "./allUsersReducer";
+import { errorMessageReducer } from "./errorMessageReducer";
+import { favoritesReducer } from "./favoritesReducer";
 
 export const rootReducer = combineReducers({
     movies: moviesReducer,
@@ -12,3 +12,4 @@ export const rootReducer = combineReducers({
     message: errorMessageReducer,
     favorites: favoritesReducer,
 })
+

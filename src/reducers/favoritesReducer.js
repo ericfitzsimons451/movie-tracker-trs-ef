@@ -11,3 +11,4 @@ export const favoritesReducer = (state=[], action) => {
             return state
     }
 }
+

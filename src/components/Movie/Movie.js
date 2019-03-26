@@ -104,6 +104,6 @@ export const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(Movie)
 
 Movie.propTypes = {
-    movie: PropTypes.object,
-    user: PropTypes.object
-}
+  movie: PropTypes.object,
+  user: PropTypes.object
+};

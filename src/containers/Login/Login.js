@@ -10,24 +10,24 @@ import allPurposeFetch from '../../allPurposeFetch'
 
 
 export class Login extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            name: '',
-            email: '',
-            password:'',
-            errorMsg: '',
-            newUserName: '',
-            newUserEmail: '',
-            newUserPassword: '',
-            createUser: false
-        }
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      email: "",
+      password: "",
+      errorMsg: "",
+      newUserName: "",
+      newUserEmail: "",
+      newUserPassword: "",
+      createUser: false
+    };
+  }
 
-    handleChange = (e) => {
-        const { name, value } = e.target
-        this.setState({ [name]: value })
-    }
+  handleChange = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
 
     handleSubmit = async (e) => {
         e.preventDefault()
@@ -52,8 +52,9 @@ export class Login extends Component {
             })
             alert(this.state.errorMsg)
         }
-        this.setState({email: '', password: ''})
-    }
+        this.setState({ email: "", password: "" });
+      };
+
 
     fetchFavoriteMovies = async () => {
         const url = `http://localhost:3000/api/users/${this.props.user.id}/favorites`
@@ -80,109 +81,140 @@ export class Login extends Component {
         })
     }
 
-    createNewUser = async (e) => {
-        e.preventDefault()
-        if (this.props.allUsers.includes(this.state.newUserEmail)) {
-            this.setState({
-                errorMsg: 'That email already exists'
-            }, () => { alert(this.state.errorMsg) })   
-        } else {
-            try {
-                await fetch('http://localhost:3000/api/users/new', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        name: this.state.newUserName, 
-                        email: this.state.newUserEmail, 
-                        password: this.state.newUserPassword, 
-                    }),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-            } catch (error) {
-                this.setState({
-                    errorMsg: error
-                })
-            }
-                this.loginNewUser()
-        }
-    }
 
-    loginNewUser = () => {
-        const data = {
+  createNewUser = async e => {
+    e.preventDefault();
+    if (this.props.allUsers.includes(this.state.newUserEmail)) {
+      this.setState(
+        {
+          errorMsg: "That email already exists"
+        },
+        () => {
+          alert(this.state.errorMsg);
+        }
+      );
+    } else {
+      try {
+        await fetch("http://localhost:3000/api/users/new", {
+          method: "POST",
+          body: JSON.stringify({
             name: this.state.newUserName,
             email: this.state.newUserEmail,
-            favorites: []
-        }
-        this.props.loginUser(data)
+            password: this.state.newUserPassword
+          }),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+      } catch (error) {
+        this.setState({
+          errorMsg: error
+        });
+      }
+      this.loginNewUser();
+    }
+  };
+
+  loginNewUser = () => {
+    const data = {
+      name: this.state.newUserName,
+      email: this.state.newUserEmail,
+      favorites: []
+    };
+    this.props.loginUser(data);
+  };
+
+  render() {
+    let feedback;
+    let nameLabel;
+    let nameInput;
+    let emailName;
+    let emailValue;
+    let passwordName;
+    let passwordValue;
+    let signInBtn;
+    let signInMsg;
+    let toggleForm;
+
+    if (this.state.createUser === false) {
+      feedback = "Sign In";
+      nameLabel = "";
+      emailName = "email";
+      emailValue = this.state.email;
+      passwordName = "password";
+      passwordValue = this.state.password;
+      signInBtn = this.handleSubmit;
+      signInMsg = "Submit";
+      toggleForm = (
+        <NavLink to="/login" onClick={this.updateState} className="login-btn">
+          Create an Account
+        </NavLink>
+      );
+    } else if (this.state.createUser === true) {
+      feedback = "Create an Account";
+      nameLabel = "Name";
+      nameInput = (
+        <input
+          onChange={this.handleChange}
+          name="newUserName"
+          value={this.state.newUserName}
+        />
+      );
+      emailName = "newUserEmail";
+      emailValue = this.state.newUserEmail;
+      passwordName = "newUserPassword";
+      passwordValue = this.state.newUserPassword;
+      signInBtn = this.createNewUser;
+      signInMsg = "Submit";
     }
 
-    render() {
-        let feedback;
-        let nameLabel;
-        let nameInput;
-        let emailName;
-        let emailValue;
-        let passwordName;
-        let passwordValue;
-        let signInBtn; 
-        let signInMsg;
-        let toggleForm;
+    if (this.props.user.email) {
+      return <Redirect to="/" />;
+    } else {
+      return (
+        <div>
+          <form className="login-form" onSubmit={this.handleSubmit}>
+            <h3 className="feedback">{feedback}</h3>
+            <div className="name-input">
+              <label for="newUserName">{nameLabel}</label>
+              {nameInput}
+            </div>
+            <div className="email-input">
+              <label for={emailName}>Email</label>
+              <input
+                onChange={this.handleChange}
+                name={emailName}
+                type="email"
+                value={emailValue}
+              />
+            </div>
+            <div className="password-input">
+              <label for={passwordName}>Password</label>
+              <input
+                onChange={this.handleChange}
+                name={passwordName}
+                type="password"
+                value={passwordValue}
+              />
+            </div>
 
-        if (this.state.createUser === false) {
-            feedback = 'Sign In';
-            nameLabel = '';
-            emailName = 'email';
-            emailValue = this.state.email;
-            passwordName = 'password';
-            passwordValue = this.state.password;
-            signInBtn = this.handleSubmit;
-            signInMsg = 'Submit';
-            toggleForm = <NavLink to='/login' onClick={this.updateState} className='login-btn'>Create an Account</NavLink>
-        } else if (this.state.createUser === true) {
-            feedback = 'Create an Account';
-            nameLabel = 'Name'
-            nameInput = <input onChange={this.handleChange} name='newUserName' value={this.state.newUserName} />
-            emailName = 'newUserEmail';
-            emailValue = this.state.newUserEmail;
-            passwordName = 'newUserPassword';
-            passwordValue = this.state.newUserPassword;
-            signInBtn = this.createNewUser;
-            signInMsg = 'Submit'
-        }
-
-        if (this.props.user.email) {
-            return <Redirect to='/' />
-        } else {
-            return (
-                <div>
-                    <form className='login-form' onSubmit={this.handleSubmit}>
-                        <h3 className='feedback'>{feedback}</h3>
-                        <div className='name-input'>
-                            <label for='newUserName'>{nameLabel}</label>
-                            {nameInput}
-                        </div>
-                        <div className='email-input'>
-                            <label for={emailName}>Email</label>
-                            <input onChange={this.handleChange} name={emailName} type="email" value={emailValue} />
-                        </div>
-                        <div className='password-input'>
-                            <label for={passwordName}>Password</label>
-                            <input onChange={this.handleChange} name={passwordName} type="password" value={passwordValue} />
-                        </div>
-                        
-                        <div className='login-btns'>
-                            <p className='error-msg'>
-                                {this.props.errorMsg}
-                            </p>
-                            <NavLink to='/' type='submit' onClick={signInBtn} className='login-btn'>{signInMsg}</NavLink>
-                            {toggleForm}
-                        </div>
-                    </form>
-                </div>   
-            )
-        }
+            <div className="login-btns">
+              <p className="error-msg">{this.state.errorMsg}</p>
+              <NavLink
+                to="/"
+                type="submit"
+                onClick={signInBtn}
+                className="login-btn"
+              >
+                {signInMsg}
+              </NavLink>
+              {toggleForm}
+            </div>
+          </form>
+        </div>
+      );
     }
+  }
 }
 
 export const mapStateToProps = (state) => ({
@@ -197,9 +229,9 @@ export const mapDispatchToProps = (dispatch) => ({
     storeFavorites: (favorites) => dispatch(storeFavorites(favorites))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 Login.propTypes = {
-    loginUser: PropTypes.func,
-    user: PropTypes.object
-}
+  loginUser: PropTypes.func,
+  user: PropTypes.object
+};

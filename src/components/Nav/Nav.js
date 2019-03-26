@@ -1,3 +1,4 @@
+
 import React from 'react'
 import './Nav.scss'
 import { NavLink, withRouter } from 'react-router-dom'
@@ -5,16 +6,18 @@ import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import { loginUser, setLoginError } from '../../actions'
 
-const Nav = (props) => {
 
-    const signOut = (e) => {
-        const data = {
-            name: '',
-            email: '',
-        }
-        props.loginUser(data)
-    }
+const Nav = props => {
+  console.log(props)
+  const signOut = e => {
+    const data = {
+      name: "",
+      email: ""
+    };
+    props.loginUser(data);
+  };
 
+ 
     const validateLogin = async (e) => {
         const { history } = props
         if (!props.user.email) {
@@ -55,10 +58,15 @@ export const mapDispatchToProps = (dispatch) => ({
     setLoginError: (message) => dispatch(setLoginError(message)),
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Nav))
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Nav)
+);
 
 Nav.propTypes = {
-    user: PropTypes.object,
-    favorites: PropTypes.array,
-    dispatch: PropTypes.func,
-}
+  user: PropTypes.object,
+  favorites: PropTypes.array,
+  dispatch: PropTypes.func
+};
