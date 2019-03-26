@@ -13,10 +13,25 @@ export const loginUser = userData => ({
   userData
 });
 
-export const storeFavorites = favorites => ({
-  type: "STORE_FAVORITES",
-  favorites
-});
+export const storeFavorites = (favorites) => ({
+    type: 'STORE_FAVORITES',
+    favorites
+})
+
+export const storeNewFavorite = (newFavorite) => ({
+    type: 'STORE_NEW_FAVORITE',
+    newFavorite
+})
+
+export const removeFavoriteFromStore = (index) => ({
+    type: 'REMOVE_FAVORITE_FROM_STORE',
+    index
+})
+
+export const setLoginError = (message) => ({
+    type: 'SET_LOGIN_ERROR',
+    message
+})
 
 export const setErrorMessage = message => ({
   type: "SET_ERROR_MESSAGE",

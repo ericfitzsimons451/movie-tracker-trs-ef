@@ -6,9 +6,10 @@ import { errorMessageReducer } from "./errorMessageReducer";
 import { favoritesReducer } from "./favoritesReducer";
 
 export const rootReducer = combineReducers({
-  movies: moviesReducer,
-  user: userReducer,
-  allUsers: allUsersReducer,
-  message: errorMessageReducer,
-  favorites: favoritesReducer
-});
+    movies: moviesReducer,
+    user: userReducer,
+    allUsers: allUsersReducer,
+    message: errorMessageReducer,
+    favorites: favoritesReducer,
+})
+

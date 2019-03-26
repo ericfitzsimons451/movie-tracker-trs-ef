@@ -1,11 +1,13 @@
-import React, { Component } from "react";
-import "./Login.scss";
-import { loginUser } from "../../actions";
-import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { cleanUser } from "../../helpers/cleanUser";
-import { Redirect } from "react-router-dom";
-import { PropTypes } from "prop-types";
+import React, { Component } from 'react'
+import './Login.scss'
+import { loginUser, storeFavorites } from '../../actions'
+import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { cleanUser } from '../../helpers/cleanUser'
+import { Redirect } from 'react-router-dom'
+import { PropTypes } from 'prop-types'
+import allPurposeFetch from '../../allPurposeFetch'
+
 
 export class Login extends Component {
   constructor(props) {
@@ -27,36 +29,58 @@ export class Login extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = async e => {
-    e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:3000/api/users", {
-        method: "POST",
-        body: JSON.stringify({
-          email: this.state.email,
-          password: this.state.password
-        }),
-        headers: {
-          "Content-Type": "application/json"
+    handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            const response = await fetch('http://localhost:3000/api/users', {
+            method: 'POST',
+            body: JSON.stringify({
+                email: this.state.email, 
+                password: this.state.password, 
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            } 
+        })
+        const user = await response.json()
+        const cleanedUser = cleanUser(user)
+        this.props.loginUser(cleanedUser)
+        this.fetchFavoriteMovies()
+        } catch (error) {
+            this.setState({
+                errorMsg: error.message.detail
+            })
+            alert(this.state.errorMsg)
         }
-      });
-      const user = await response.json();
-      const cleanedUser = cleanUser(user);
-      this.props.loginUser(cleanedUser);
-    } catch (error) {
-      this.setState({
-        errorMsg: error.message.detail
-      });
-      alert(this.state.errorMsg);
-    }
-    this.setState({ email: "", password: "" });
-  };
+        this.setState({ email: "", password: "" });
+      };
 
-  updateState = () => {
-    this.setState({
-      createUser: true
-    });
-  };
+
+    fetchFavoriteMovies = async () => {
+        const url = `http://localhost:3000/api/users/${this.props.user.id}/favorites`
+        const favorites = await allPurposeFetch(url)
+        const favs = this.filterFavorites(favorites.data)
+        this.props.storeFavorites(favs)
+    }
+
+    filterFavorites = (array) => {
+        const favs = []
+        this.props.movies.forEach((movie) => {
+            array.forEach((favorite) => {
+                if (favorite.movie_id === movie.id) {
+                    favs.push(movie)
+                } 
+            })
+        })
+        return favs;
+    }
+
+    updateState = () => {
+        this.setState({
+            createUser: true
+        })
+    }
+
 
   createNewUser = async e => {
     e.preventDefault();
@@ -193,14 +217,17 @@ export class Login extends Component {
   }
 }
 
-export const mapStateToProps = state => ({
-  user: state.user,
-  allUsers: state.allUsers
-});
+export const mapStateToProps = (state) => ({
+    user: state.user,
+    allUsers: state.allUsers,
+    movies: state.movies,
+    errorMsg: state.message,
+})
 
-export const mapDispatchToProps = dispatch => ({
-  loginUser: user => dispatch(loginUser(user))
-});
+export const mapDispatchToProps = (dispatch) => ({
+    loginUser: (user) => dispatch(loginUser(user)),
+    storeFavorites: (favorites) => dispatch(storeFavorites(favorites))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
