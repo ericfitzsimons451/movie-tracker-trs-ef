@@ -28,6 +28,11 @@ export const removeFavoriteFromStore = (index) => ({
     index
 })
 
+export const storeCurrMovie = (currMovie) => ({
+  type: 'STORE_CURR_MOVIE',
+  currMovie
+})
+
 export const setLoginError = (message) => ({
     type: 'SET_LOGIN_ERROR',
     message

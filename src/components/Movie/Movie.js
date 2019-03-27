@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import './Movie.scss'
 import PropTypes from 'prop-types'
-import { storeNewFavorite, removeFavoriteFromStore } from '../../actions'
+import { storeNewFavorite, removeFavoriteFromStore, storeCurrMovie } from '../../actions'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 export class Movie extends Component {
     constructor(props) {
@@ -80,6 +81,20 @@ export class Movie extends Component {
         this.props.removeFavoriteFromStore(index)
     }
 
+    viewMovie = () => {
+    const { history } = this.props
+    let currMovie = {
+        id: this.props.id, 
+        name: this.props.name, 
+        poster_path: this.props.poster_path,
+        release_date: this.props.release_date,
+        vote_average: this.props.vote_average,
+        overview: this.props.overview,
+    }
+    this.props.storeCurrMovie(currMovie)
+    history.push(`/movies/${this.props.id}`)
+}
+
 render() {
     let btn;
     let storedFavoriteIds = this.props.favorites.map(favorite => favorite.id)
@@ -93,7 +108,7 @@ render() {
 
     return (
         <div className='movie-card'>
-            <div className='movie-poster'>
+            <div className='movie-poster' onClick={this.viewMovie}>
                 <img src={`http://image.tmdb.org/t/p/original/${this.props.poster_path}`} alt="poster" />
             </div>
             <div className='movie-details'>
@@ -117,9 +132,10 @@ export const mapStateToProps = (state) => ({
 export const mapDispatchToProps = (dispatch) => ({
     storeNewFavorite: (newFavorite) => dispatch(storeNewFavorite(newFavorite)),
     removeFavoriteFromStore: (index) => dispatch(removeFavoriteFromStore(index)),
+    storeCurrMovie: (movie) => dispatch(storeCurrMovie(movie))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Movie)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Movie))
 
 Movie.propTypes = {
   movie: PropTypes.object,

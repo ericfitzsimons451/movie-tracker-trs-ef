@@ -4,6 +4,7 @@ import allPurposeFetch from "../../allPurposeFetch";
 import apiKey from "../../APIkey.js";
 import { Route } from "react-router-dom";
 import AllMovies from "../../components/AllMovies/AllMovies";
+import BigMovie from '../../components/BigMovie/BigMovie'
 import Header from "../../components/Header/Header";
 import Nav from "../../components/Nav/Nav";
 import Login from "../../containers/Login/Login";
@@ -50,6 +51,7 @@ export class App extends Component {
   };
 
   render() {
+    console.log(this.props.currMovie)
     return (
       <div className="App">
         <div className="header-container">
@@ -69,6 +71,11 @@ export class App extends Component {
           className="display"
           render={() => <AllMovies movies={this.props.favorites} />}
         />
+        <Route 
+          path='/movies'
+          className="display curr-movie" 
+          render={() => <BigMovie movie={this.props.currMovie} />}
+        />
       </div>
     );
   }
@@ -76,7 +83,8 @@ export class App extends Component {
 
 export const mapStateToProps = state => ({
   movies: state.movies,
-  favorites: state.favorites
+  favorites: state.favorites,
+  currMovie: state.currMovie
 });
 
 export const mapDispatchToProps = dispatch => ({
