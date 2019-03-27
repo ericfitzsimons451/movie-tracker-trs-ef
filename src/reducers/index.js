@@ -4,6 +4,7 @@ import { userReducer } from "./userReducer";
 import { allUsersReducer } from "./allUsersReducer";
 import { errorMessageReducer } from "./errorMessageReducer";
 import { favoritesReducer } from "./favoritesReducer";
+import { currMovieReducer } from "./currMovieReducer"
 
 export const rootReducer = combineReducers({
     movies: moviesReducer,
@@ -11,5 +12,6 @@ export const rootReducer = combineReducers({
     allUsers: allUsersReducer,
     message: errorMessageReducer,
     favorites: favoritesReducer,
+    currMovie: currMovieReducer
 })
 

@@ -50,7 +50,6 @@ export class Login extends Component {
             this.setState({
                 errorMsg: 'User not found'
             })
-            alert(this.state.errorMsg)
         }
         this.setState({ email: "", password: "" });
       };
@@ -85,14 +84,9 @@ export class Login extends Component {
   createNewUser = async e => {
     e.preventDefault();
     if (this.props.allUsers.includes(this.state.newUserEmail)) {
-      this.setState(
-        {
+      this.setState({
           errorMsg: "That email already exists"
-        },
-        () => {
-          alert(this.state.errorMsg);
-        }
-      );
+        });
     } else {
       try {
         await fetch("http://localhost:3000/api/users/new", {
@@ -199,7 +193,7 @@ export class Login extends Component {
             </div>
 
             <div className="login-btns">
-              <p className="error-msg">{this.props.errorMsg}</p>
+              <p className="error-msg">{this.state.errorMsg}</p>
               <NavLink
                 to="/"
                 type="submit"
@@ -221,7 +215,7 @@ export const mapStateToProps = (state) => ({
     user: state.user,
     allUsers: state.allUsers,
     movies: state.movies,
-    errorMsg: state.message,
+    // errorMsg: state.message,
 })
 
 export const mapDispatchToProps = (dispatch) => ({
