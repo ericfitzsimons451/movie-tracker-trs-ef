@@ -3,7 +3,6 @@ import "./BigMovie.scss";
 import PropTypes from "prop-types";
 
 export const BigMovie = ( {movie} ) => {
-  console.log(movie)
   return (
     <div className='big-movie-card'>
     <div className='movie-poster'>
@@ -14,9 +13,12 @@ export const BigMovie = ( {movie} ) => {
         <h2 className='release-date'>Released: {movie.release_date}</h2>
         <h2 className='vote-avg'>Rating: {movie.vote_average}</h2>
         <p className='overview'>{movie.overview}</p>
-        {/* <button onClick={this.validateUser}>{btn}</button> */}
     </div>
 </div>
 )};
+
+BigMovie.propsTypes = {
+    movie: PropTypes.object
+}
 
 export default BigMovie;

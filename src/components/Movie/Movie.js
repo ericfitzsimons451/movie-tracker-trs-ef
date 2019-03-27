@@ -15,7 +15,7 @@ export class Movie extends Component {
     }
 
     validateUser = () => {
-        if(this.state.user) {
+        if (this.state.user) {
             this.toggleFavorite()
         } else {
             this.setState({
@@ -25,19 +25,19 @@ export class Movie extends Component {
     }
 
     toggleFavorite = () => {
-    let storedFavoriteIds = this.props.favorites.map(favorite => favorite.id)
-    let alreadyFav = storedFavoriteIds.includes(this.props.id)
-    if (!alreadyFav) {
+        let storedFavoriteIds = this.props.favorites.map(favorite => favorite.id)
+        let alreadyFav = storedFavoriteIds.includes(this.props.id)
+        if (!alreadyFav) {
             this.addFavorite()
         } else {
             this.removeFavorite()
-        } 
-}
-    
+        }
+    }
+
     addFavorite = async () => {
         let movie = {
-            id: this.props.id, 
-            name: this.props.name, 
+            id: this.props.id,
+            name: this.props.name,
             poster_path: this.props.poster_path,
             release_date: this.props.release_date,
             vote_average: this.props.vote_average,
@@ -48,12 +48,12 @@ export class Movie extends Component {
             method: 'POST',
             body: JSON.stringify({
                 user_id: this.props.user.id,
-                movie_id: this.props.id, 
-                title: this.props.name, 
+                movie_id: this.props.id,
+                title: this.props.name,
                 poster_path: this.props.poster_path,
                 release_date: this.props.release_date,
                 vote_average: this.props.vote_average,
-                overview: this.props.overview, 
+                overview: this.props.overview,
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -74,55 +74,54 @@ export class Movie extends Component {
     }
 
     findItemToRemove = () => {
-    let storedFavoriteIds = this.props.favorites.map(favorite => favorite.id)
-    let index = storedFavoriteIds.findIndex((id)=> {
+        let storedFavoriteIds = this.props.favorites.map(favorite => favorite.id)
+        let index = storedFavoriteIds.findIndex((id) => {
             return id === this.props.id
         })
         this.props.removeFavoriteFromStore(index)
     }
 
     viewMovie = () => {
-    const { history } = this.props
-    let currMovie = {
-        id: this.props.id, 
-        name: this.props.name, 
-        poster_path: this.props.poster_path,
-        release_date: this.props.release_date,
-        vote_average: this.props.vote_average,
-        overview: this.props.overview,
-    }
-    this.props.storeCurrMovie(currMovie)
-    history.push(`/movies/${this.props.id}`)
-}
-
-render() {
-    let btn;
-    let storedFavoriteIds = this.props.favorites.map(favorite => favorite.id)
-    let alreadyFav = storedFavoriteIds.includes(this.props.id)
-    
-    if (alreadyFav) {
-        btn = "Remove from Favorites"
-    } else {
-        btn = "Add to Favorites"
+        const { history } = this.props
+        let currMovie = {
+            id: this.props.id,
+            name: this.props.name,
+            poster_path: this.props.poster_path,
+            release_date: this.props.release_date,
+            vote_average: this.props.vote_average,
+            overview: this.props.overview,
+        }
+        this.props.storeCurrMovie(currMovie)
+        history.push(`/movies/${this.props.id}`)
     }
 
-    return (
-        <div className='movie-card'>
-            <div className='movie-poster' onClick={this.viewMovie}>
-                <img src={`http://image.tmdb.org/t/p/original/${this.props.poster_path}`} alt="poster" />
-            </div>
-            <div className='movie-details'>
-                <h3 className="movie-title">{this.props.name}</h3>
-                <h2 className='release-date'>Released: {this.props.release_date}</h2>
-                <h2 className='vote-avg'>Rating: {this.props.vote_average}</h2>
-                <p className='overview'>{this.props.overview}</p>
-                <button onClick={this.validateUser}>{btn}</button>
-            </div>
-        </div>
-    )
-}
-}
+    render() {
+        let btn;
+        let storedFavoriteIds = this.props.favorites.map(favorite => favorite.id)
+        let alreadyFav = storedFavoriteIds.includes(this.props.id)
 
+        if (alreadyFav) {
+            btn = "Remove from Favorites"
+        } else {
+            btn = "Add to Favorites"
+        }
+
+        return (
+            <div className='movie-card'>
+                <div className='movie-poster' onClick={this.viewMovie}>
+                    <img src={`http://image.tmdb.org/t/p/original/${this.props.poster_path}`} alt="poster" />
+                </div>
+                <div className='movie-details'>
+                    <h3 className="movie-title">{this.props.name}</h3>
+                    <h2 className='release-date'>Released: {this.props.release_date}</h2>
+                    <h2 className='vote-avg'>Rating: {this.props.vote_average}</h2>
+                    <p className='overview'>{this.props.overview}</p>
+                    <button onClick={this.validateUser}>{btn}</button>
+                </div>
+            </div>
+        )
+    }
+}
 
 export const mapStateToProps = (state) => ({
     user: state.user,
@@ -138,6 +137,10 @@ export const mapDispatchToProps = (dispatch) => ({
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Movie))
 
 Movie.propTypes = {
-  movie: PropTypes.object,
-  user: PropTypes.object
+    movie: PropTypes.object,
+    user: PropTypes.object,
+    favorites: PropTypes.array,
+    storeNewFavorite: PropTypes.func,
+    removeFavoriteFromStore: PropTypes.func,
+    storeCurrMovie: PropTypes.func
 };
