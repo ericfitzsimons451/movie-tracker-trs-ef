@@ -5,9 +5,25 @@ import { storeNewFavorite, removeFavoriteFromStore } from '../../actions'
 import { connect } from 'react-redux'
 
 export class Movie extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: this.props.user.email,
+            errorMsg: ''
+        }
+    }
 
+    validateUser = () => {
+        if(this.state.user) {
+            this.toggleFavorite()
+        } else {
+            this.setState({
+                errorMsg: 'You must be signed in to add a favorite'
+            }, () => alert(this.state.errorMsg))
+        }
+    }
 
-toggleFavorite = () => {
+    toggleFavorite = () => {
     let storedFavoriteIds = this.props.favorites.map(favorite => favorite.id)
     let alreadyFav = storedFavoriteIds.includes(this.props.id)
     if (!alreadyFav) {
@@ -17,7 +33,7 @@ toggleFavorite = () => {
         } 
 }
     
-addFavorite = async () => {
+    addFavorite = async () => {
         let movie = {
             id: this.props.id, 
             name: this.props.name, 
@@ -45,7 +61,7 @@ addFavorite = async () => {
         this.props.storeNewFavorite(movie)
     }
 
-removeFavorite = async () => {
+    removeFavorite = async () => {
         const url = `http://localhost:3000/api/users/${this.props.user.id}/favorites/${this.props.id}`
         await fetch(url, {
             method: 'DELETE',
@@ -56,7 +72,7 @@ removeFavorite = async () => {
         this.findItemToRemove()
     }
 
-findItemToRemove = () => {
+    findItemToRemove = () => {
     let storedFavoriteIds = this.props.favorites.map(favorite => favorite.id)
     let index = storedFavoriteIds.findIndex((id)=> {
             return id === this.props.id
@@ -85,7 +101,7 @@ render() {
                 <h2 className='release-date'>Released: {this.props.release_date}</h2>
                 <h2 className='vote-avg'>Rating: {this.props.vote_average}</h2>
                 <p className='overview'>{this.props.overview}</p>
-                <button onClick={this.toggleFavorite}>{btn}</button>
+                <button onClick={this.validateUser}>{btn}</button>
             </div>
         </div>
     )
