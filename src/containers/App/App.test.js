@@ -3,6 +3,8 @@ import { storeMovies, storeUsers } from "../../actions";
 import mockFetchedData from "../../mockData";
 import { shallow } from "enzyme";
 import React from "react";
+import { allPurposeFetch } from '../../allPurposeFetch'
+jest.mock('../../allPurposeFetch')
 
 describe("App", () => {
   let wrapper;
@@ -15,6 +17,21 @@ describe("App", () => {
       expect(wrapper).toMatchSnapshot()
     })
   });
+
+  // describe('componentDidMount', () => {
+    // const fetchMovies = jest.fn()
+    // const fetchAllUsers = jest.fn()
+    // wrapper.instance().componentDidMount()
+    // expect(fetchMovies).toHaveBeenCalled()
+    // expect(fetchAllUsers).toHaveBeenCalled()
+  // })
+
+  // describe('fetchMovies', () => {
+  //   const mockUrl = 'www.website.com'
+  //   const mockCleanedMovies = {}
+  //   allPurposeFetch(mockUrl).mockImplementation()
+  //   const cleanMovies = jest.fn()
+  // })
 
   describe("cleanMovies", () => {
     it("should take in an array of movies and return a cleaned array", () => {

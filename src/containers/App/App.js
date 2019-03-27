@@ -19,6 +19,7 @@ export class App extends Component {
   fetchMovies = async () => {
     const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`;
     const movies = await allPurposeFetch(url);
+    console.log(movies)
     const cleanedMovies = this.cleanMovies(movies.results);
     this.props.storeMovies(cleanedMovies);
   };
