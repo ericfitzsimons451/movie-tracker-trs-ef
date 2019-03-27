@@ -4,20 +4,19 @@ import './Nav.scss'
 import { NavLink, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
-import { loginUser, setLoginError } from '../../actions'
+import { loginUser, setLoginError, storeFavorites } from '../../actions'
 
 
 const Nav = props => {
-  console.log(props)
   const signOut = e => {
     const data = {
       name: "",
       email: ""
     };
     props.loginUser(data);
+    props.storeFavorites([])
   };
 
- 
     const validateLogin = async (e) => {
         const { history } = props
         if (!props.user.email) {
