@@ -1,7 +1,7 @@
-import cleanUser from "../helpers/cleanUser";
+import { cleanUser } from "../helpers/cleanUser";
 
 describe("cleanUser", () => {
-  it.skip("should clean the user object", () => {
+  it("should clean the user object", () => {
     const mockPreCleanedUser = {
       data: {
         email: "tman2272@aol.com",

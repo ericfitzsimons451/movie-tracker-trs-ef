@@ -48,7 +48,7 @@ export class Login extends Component {
         this.fetchFavoriteMovies()
         } catch (error) {
             this.setState({
-                errorMsg: error.message.detail
+                errorMsg: 'User not found'
             })
             alert(this.state.errorMsg)
         }

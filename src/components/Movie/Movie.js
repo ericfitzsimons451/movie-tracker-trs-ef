@@ -5,7 +5,6 @@ import { storeNewFavorite, removeFavoriteFromStore } from '../../actions'
 import { connect } from 'react-redux'
 
 export const Movie = (props) => {
-console.log(props.favorites)
     let movie = {
         id: props.id, 
         name: props.name, 

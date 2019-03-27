@@ -1,10 +1,18 @@
 import React from 'react'
 import Movie from '../Movie/Movie'
 import { AllMovies } from '../AllMovies/AllMovies';
+import { shallow } from 'enzyme'
 
 describe("AllMovies", () => {
+  let wrapper;
+
+  it.skip('should match the snapshot', () => {
+    wrapper = shallow(<AllMovies />)
+    expect(wrapper).toMatchSnapshot();
+  })
+
   describe('allMovies', () => {
-    it('should match the snapshot with a MOVIES array passed down', () => {
+    it('should return an array of Movie components', () => {
       const mockMovies = {movies:[
         {
           name: "How to Train Your Dragon: The Hidden World",
@@ -32,8 +40,5 @@ describe("AllMovies", () => {
       const results = AllMovies(mockMovies)
       expect(results).toEqual(expected)
     })
-
-     
-   
   })
 });

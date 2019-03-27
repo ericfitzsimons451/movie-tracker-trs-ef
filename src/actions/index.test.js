@@ -1,6 +1,7 @@
 import * as actions from "./index";
+import { REFUSED } from "dns";
 
-describe("storeMovies", () => {
+describe.skip("storeMovies", () => {
   it("should take in an array of movies and return an object with type STORE_MOVIES", () => {
     const mockMovies = [{ title: "Aquaman" }, { title: "Triple Frontier" }];
     const expected = { type: "STORE_MOVIES", movies: mockMovies };
@@ -61,12 +62,50 @@ describe("loginUser", () => {
     })
   })
 
-    describe('setErrorMessage', () => {
-      it('should take in and return an object with type SET_ERROR_MESSAGE and an error message', () => {
-        const mockErrorMessage = 'You must be signed in to view favorites'
-        const expected = { type: 'SET_ERROR_MESSAGE', message: mockErrorMessage }
-        const result = actions.setErrorMessage(mockErrorMessage)
-        expect(result).toEqual(expected)
-      })
+  describe('storeNewFavorite', () => {
+    it('should take in a favoriteObeject and return an object with type:STORE_NEW_FAVORITE', ()=>{
+      const newFavorite = {
+        name: "The Mule", 
+        id: 220349, 
+        poster_path: "/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", 
+        release_date: "2019-03-01", 
+        vote_average: 7.4
+      }
+      const expected = {
+        type: 'STORE_NEW_FAVORITE', 
+        newFavorite: {
+          name: "The Mule", 
+          id: 220349, 
+          poster_path: "/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", 
+          release_date: "2019-03-01", 
+          vote_average: 7.4
+      }}
+      const results = actions.storeNewFavorite(newFavorite)
+      expect(results).toEqual(expected)
     })
+  })
+
+  describe('removeFavoriteFromStore', () => {
+    it('should take in an index and return an object with type: REMOVE_FAVORITE_FROM_STORE', () => {
+      const mockIndex = 1
+      const expected = {
+        type: 'REMOVE_FAVORITE_FROM_STORE',
+        index: mockIndex
+      }
+      const results = actions.removeFavoriteFromStore(mockIndex)
+      expect(results).toEqual(expected)
+    })
+  })
+
+  describe('setLoginError', () => {
+    it('should take in a message and return an object with type: SET_LOGIN_ERROR', () => {
+      const mockMessage = 'Something went wrong'
+      const expected = {
+        type: 'SET_LOGIN_ERROR',
+        message: mockMessage
+      }
+      const results = actions.setLoginError(mockMessage)
+      expect(results).toEqual(expected)
+    })
+  })
 });
