@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { Component } from 'react'
 import './Nav.scss'
 import { NavLink, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -7,44 +7,62 @@ import { PropTypes } from 'prop-types'
 import { loginUser, setLoginError, storeFavorites } from '../../actions'
 
 
-const Nav = props => {
-  const signOut = e => {
+class Nav extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      errorMsg: ''
+    }
+  }
+  
+  signOut = e => {
     const data = {
       name: "",
       email: ""
     };
-    props.loginUser(data);
-    props.storeFavorites([])
+    this.props.loginUser(data);
+    this.props.storeFavorites([])
   };
 
-    const validateLogin = async (e) => {
-        const { history } = props
-        if (!props.user.email) {
-            props.setLoginError('You must be signed in to view favorites')
-            history.push('/login')
+  validateLogin = async (e) => {
+        const { history } = this.props
+        if (!this.props.user.email) {
+            this.setState({
+              errorMsg: 'You must be signed in to view favorites'
+            })
+            // history.push('/login')
         } else {
-            props.setLoginError('')
+            // this.props.setLoginError('')
+            this.setState({
+              errorMsg: '',
+            })
             await history.push('/favorites')
         }
     }
-        
+  
+  render() {
     let welcomeMessage;
     let authLink;
-    if (!props.user.email) {
-        authLink= <NavLink to='/login' className='nav-link'>Sign In</NavLink>
+    let errorMsg;
+    if (!this.props.user.email) {
+        errorMsg = this.state.errorMsg
+        authLink = <NavLink to='/login' className='nav-link'>Sign In</NavLink>
     } else {
-        welcomeMessage = <h3 className="welcome">Welcome, {props.user.name}!</h3>     
-        authLink = <NavLink to='/' className='nav-link' onClick={signOut}>Sign Out</NavLink>
+        errorMsg = ''
+        welcomeMessage = <h3 className="welcome">Welcome, {this.props.user.name}!</h3>     
+        authLink = <NavLink to='/' className='nav-link' onClick={this.signOut}>Sign Out</NavLink>
     }
 
     return (
         <div className="nav-container">
+            <p className='nav-error-msg'>{errorMsg}</p>
             <NavLink to='/' className="nav-link">Movies</NavLink>
-            <button type='submit' className='nav-btn' onClick={validateLogin}>Favorites</button>
+            <button type='submit' className='nav-btn' onClick={this.validateLogin}>Favorites</button>
             {authLink}
             {welcomeMessage}
         </div>
     )
+  }
 }
 export const mapStateToProps = (state) => ({
     user: state.user,
