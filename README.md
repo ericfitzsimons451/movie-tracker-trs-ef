@@ -12,7 +12,7 @@
 
 ## Background/About
 
-### This project was our first paired project as Mod 3 students.  We were tasked with making fetch calls to an external API, using both GET and POST requests.  It was the first project where we were asked to use Redux to manage our data and React Router for explicit pathways through a single-page movie-information app.  The project also implements a Jest/Enzyme test-suite and Sass styling.
+### This week-long project was our first paired endeavor as Mod 3 students.  We were tasked with making fetch calls to an external API, using both GET and POST requests.  It was the first project where we were asked to use Redux to manage our data and React Router for explicit pathways through a single-page movie-information app.  The project also implements a Jest/Enzyme test-suite and Sass styling.  We learned a lot about how to manage state through the Redux store and when it is and isn't necessary to do so.  
 
 ## Tech Stack
 
