@@ -22,8 +22,6 @@
 - Jest/Enzyme
 - Sass
 - API fetch
-
-## Deployed Site
   
 ## Future Iterations
 - Enlarged card to display additional information of chosen selection.
@@ -41,6 +39,7 @@
 
 
 ## Wireframe
+<img width="444" alt="Screen Shot 2019-03-27 at 7 56 59 AM" src="https://user-images.githubusercontent.com/43555476/55081689-f2fb8680-5065-11e9-87f8-0064087deb39.png">
 
 ## Contributing Partners
 [Eric Fitzsimons](https://github.com/ericfitzsimons451)
