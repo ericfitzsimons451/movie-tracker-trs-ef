@@ -1,34 +1,68 @@
-import Login from "../Login/Login";
+import { Login }  from "../Login/Login";
 import { shallow } from "enzyme";
 import React from "react";
-import { mapDispatchToProps, mapStateToProps, updateState } from "../Login/Login";
+import { updateState } from "../Login/Login";
 import { loginUser } from '../../actions'
 
 describe.skip("Login", () => {
   let wrapper;
-  
-  it("should have initial state", () => {
-    wrapper = shallow(<Login />);
-  });
+
+  beforeEach(() => {
+    wrapper = shallow(<Login />)
+  })
 
   it("should match the snapshot", () => {
-    wrapper = shallow(<Login />);
     expect(wrapper).toMatchSnapshot();
   });
 
-  describe("handleChange", () => {
-    it.skip("should live-update state with changes from buttons", () => {});
+  it.skip("should have default state", () => {
+    const mockDefaultState = {
+      name: "",
+      email: "",
+      password: "",
+      errorMsg: "",
+      newUserName: "",
+      newUserEmail: "",
+      newUserPassword: "",
+      createUser: false
+    }
+    
+    wrapper = shallow(<Login />, { disableLifecycleMethods: true })
+    expect(wrapper.state()).toEqual(mockDefaultState)
   });
 
-  describe('updateState', () => {
-    wrapper = shallow(<Login />)
+  describe.skip("handleChange", () => {
+    let wrapper;
+    it("should live-update state with changes from buttons", () => {
+      wrapper = shallow(<Login />)
+      // const mockEvent = { preventDefault: () => {} }
+      // const mockState = {
+      //   name: '',
+      //   // email: ''
+      // }
+      wrapper.instance().handleChange()
+      // expect(mockState('name')).toEqual('a')
+      
+    });
+  });
+
+  describe.skip('handleSubmit', () => {
+    const mockEventPreventDefault = { preventDefault: () => {} }
+    window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
+      json: () => Promise.resolve({name: '', email: ''})
+    }))
+
+  })
+
+  describe.skip('updateState', () => {
+
     const setState = jest.fn()
     wrapper.instance().updateState()
     expect(setState).toHaveBeenCalled()
   })
 });
 
-describe("maphDispatchToProps", () => {
+describe.skip("mapDispatchToProps", () => {
   it("should dispatch action.loginUser with a payload of user data", () => {
     const mockDispatch = jest.fn();
     const mockUserData = {

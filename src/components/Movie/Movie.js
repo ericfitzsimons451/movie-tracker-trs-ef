@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 
 export class Movie extends Component {
 
+
 toggleFavorite = () => {
     let storedFavoriteIds = this.props.favorites.map(favorite => favorite.id)
     let alreadyFav = storedFavoriteIds.includes(this.props.id)
