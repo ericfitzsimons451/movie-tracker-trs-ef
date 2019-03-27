@@ -1,15 +1,17 @@
 import { favoritesReducer } from '../reducers/favoritesReducer'
 
 describe('favoritesReducer', () => {
+    let initialState;
+    beforeEach(() => {
+        initialState = []
+    })
     it('should return default state when there is no action.type', () => {
-        const initialState = []
         const action = {}
         const result = favoritesReducer(initialState, action)
         expect(result).toEqual(initialState)
     })
 
     it('should return an array of favorites when action.type is STORE_FAVORITES', () => {
-        const initialState = []
         const mockFavorites = [{
             id: 166428,
             name: "How to Train Your Dragon: The Hidden World",
@@ -30,7 +32,9 @@ describe('favoritesReducer', () => {
         expect(results).toEqual(mockFavorites)
     })
 
-    it('should return an array of favorites when action.type is STORE_FAVORITES', () => {
+
+    it('should return an array w state and a new favorite when the type is STORE_NEW_FAVORITE', () => {
+ 
         const initialState = [];
         const mockNewFavorite = {
             id: 299537, 

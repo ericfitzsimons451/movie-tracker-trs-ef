@@ -1,17 +1,17 @@
 import { Login }  from "../Login/Login";
 import { shallow } from "enzyme";
 import React from "react";
-import { updateState } from "../Login/Login";
+import { mapStateToProps, mapDispatchToProps, updateState } from "../Login/Login";
 import { loginUser } from '../../actions'
 
-describe.skip("Login", () => {
+describe("Login", () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = shallow(<Login />)
   })
 
-  it("should match the snapshot", () => {
+  it.skip("should match the snapshot", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -31,38 +31,48 @@ describe.skip("Login", () => {
     expect(wrapper.state()).toEqual(mockDefaultState)
   });
 
-  describe.skip("handleChange", () => {
-    let wrapper;
-    it("should live-update state with changes from buttons", () => {
-      wrapper = shallow(<Login />)
-      // const mockEvent = { preventDefault: () => {} }
-      // const mockState = {
-      //   name: '',
-      //   // email: ''
-      // }
-      wrapper.instance().handleChange()
-      // expect(mockState('name')).toEqual('a')
-      
-    });
-  });
+  // describe('updateState', () => {
+  //   wrapper = shallow(<Login />)
+  //   const setState = jest.fn()
+  //   wrapper.instance().updateState()
+  //   expect(setState).toHaveBeenCalled()
+  // })
 
-  describe.skip('handleSubmit', () => {
-    const mockEventPreventDefault = { preventDefault: () => {} }
-    window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
-      json: () => Promise.resolve({name: '', email: ''})
-    }))
+  describe('handleSubmit', () => {
+    it('should', async () => {
+      const mockEvent = {target: {}}
+      const mockPreventDefault = {preventDefault: () => {}}
+      const mockState = {
+        email: 'a@b.com',
+        password: 12345
+      }
+      const mockCleanedUser = {
+        email: "tman2272@aol.com",
+        id: 1,
+        name: "Taylor"
+      }
+      window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({email: mockState.email, password: mockState.password})
+      }))
 
-  })
-
-  describe.skip('updateState', () => {
-
-    const setState = jest.fn()
-    wrapper.instance().updateState()
-    expect(setState).toHaveBeenCalled()
+      const mockUser = await mockCleanedUser.json()
+      const mockCleanUser = jest.fn()
+      await wrapper.instance().handleSubmit()
+      expect().toHaveBeenCalled()
+    }) 
   })
 });
 
-describe.skip("mapDispatchToProps", () => {
+//when using FETCH, use normal syntax
+//but when using allPurposeFetch assign allPurposeFetch to the mock
+//implementation    And return the data that would be returned from the normal
+//fetch
+
+
+
+describe("mapDispatchToProps", () => {
+
   it("should dispatch action.loginUser with a payload of user data", () => {
     const mockDispatch = jest.fn();
     const mockUserData = {
