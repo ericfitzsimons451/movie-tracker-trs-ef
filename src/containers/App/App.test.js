@@ -1,9 +1,8 @@
 import { App, mapDispatchToProps, mapStateToProps} from "./App";
-import { storeMovies, storeUsers } from "../../actions";
+import { storeMovies } from "../../actions";
 import mockFetchedData from "../../mockData";
 import { shallow } from "enzyme";
 import React from "react";
-import { allPurposeFetch } from '../../allPurposeFetch'
 jest.mock('../../allPurposeFetch')
 
 describe.skip("App", () => {
@@ -136,16 +135,11 @@ describe.skip("App", () => {
 
   describe("mapDispatchToProps", () => {
     it("should call dispatch with action.storeMovies and a payload of movies", () => {
-      //setup
       const mockDispatch = jest.fn()
       const mockMovies = [{ title: "Aquaman" }, { title: "Triple Frontier" }];
       const actionToDispatch = storeMovies(mockMovies);
       const mappedProps = mapDispatchToProps(mockDispatch)
-
-      //execution
       mappedProps.storeMovies(mockMovies);
-
-      //expectation
       expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch);
     });
   });

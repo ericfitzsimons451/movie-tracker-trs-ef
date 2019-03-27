@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BigMovie should render the snapshot 1`] = `
+<div
+  className="big-movie-card"
+>
+  <div
+    className="movie-poster"
+  >
+    <img
+      alt="poster"
+      src="http://image.tmdb.org/t/p/original//2WfjB6FUDTIBVI2y02UGbnHR82s.jpg"
+    />
+  </div>
+  <div
+    className="movie-details"
+  >
+    <h3
+      className="movie-title"
+    >
+      Master Z: Ip Man Legacy
+    </h3>
+    <h2
+      className="release-date"
+    >
+      Released: 
+      2018-12-20
+    </h2>
+    <h2
+      className="vote-avg"
+    >
+      Rating: 
+      5.5
+    </h2>
+    <p
+      className="overview"
+    >
+      After being defeated by Ip Man, Cheung Tin Chi is attempting to keep a low profile. While going about his business, he gets into a fight with a foreigner by the name of Davidson, who is a big boss behind the bar district. Tin Chi fights hard with Wing Chun and earns respect.
+    </p>
+  </div>
+</div>
+`;

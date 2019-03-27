@@ -32,7 +32,6 @@ describe('favoritesReducer', () => {
         expect(results).toEqual(mockFavorites)
     })
 
-
     it('should return an array w state and a new favorite when the type is STORE_NEW_FAVORITE', () => {
  
         const initialState = [];

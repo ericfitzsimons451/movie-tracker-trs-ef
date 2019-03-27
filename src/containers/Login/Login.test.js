@@ -1,7 +1,7 @@
 import { Login }  from "../Login/Login";
 import { shallow } from "enzyme";
 import React from "react";
-import { mapStateToProps, mapDispatchToProps, updateState } from "../Login/Login";
+import { mapStateToProps, mapDispatchToProps } from "../Login/Login";
 import { loginUser } from '../../actions'
 
 describe("Login", () => {

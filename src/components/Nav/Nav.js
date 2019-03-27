@@ -1,10 +1,9 @@
-
 import React, { Component } from 'react'
 import './Nav.scss'
 import { NavLink, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
-import { loginUser, setLoginError, storeFavorites } from '../../actions'
+import { loginUser } from '../../actions'
 
 
 class Nav extends Component {
@@ -24,19 +23,18 @@ class Nav extends Component {
     this.props.storeFavorites([])
   };
 
-  validateLogin = async (e) => {
+  validateLogin = (e) => {
         const { history } = this.props
         if (!this.props.user.email) {
             this.setState({
               errorMsg: 'You must be signed in to view favorites'
             })
-            // history.push('/login')
+            history.push('/login')
         } else {
-            // this.props.setLoginError('')
             this.setState({
               errorMsg: '',
             })
-            await history.push('/favorites')
+            history.push('/favorites')
         }
     }
   
@@ -72,7 +70,6 @@ export const mapStateToProps = (state) => ({
 
 export const mapDispatchToProps = (dispatch) => ({
     loginUser: (data) => dispatch(loginUser(data)),
-    setLoginError: (message) => dispatch(setLoginError(message)),
 })
 
 export default withRouter(
@@ -85,5 +82,7 @@ export default withRouter(
 Nav.propTypes = {
   user: PropTypes.object,
   favorites: PropTypes.array,
-  dispatch: PropTypes.func
+  movies: PropTypes.array,
+  dispatch: PropTypes.func,
+  loginUser: PropTypes.func
 };
