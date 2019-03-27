@@ -48,7 +48,7 @@ export class Login extends Component {
         this.fetchFavoriteMovies()
         } catch (error) {
             this.setState({
-                errorMsg: error.message.detail
+                errorMsg: 'User not found'
             })
             alert(this.state.errorMsg)
         }
@@ -199,7 +199,7 @@ export class Login extends Component {
             </div>
 
             <div className="login-btns">
-              <p className="error-msg">{this.state.errorMsg}</p>
+              <p className="error-msg">{this.props.errorMsg}</p>
               <NavLink
                 to="/"
                 type="submit"

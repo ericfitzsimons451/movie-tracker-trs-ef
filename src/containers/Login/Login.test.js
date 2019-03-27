@@ -1,23 +1,34 @@
-import Login from "../Login/Login";
+import { Login }  from "../Login/Login";
 import { shallow } from "enzyme";
 import React from "react";
-import { mapDispatchToProps, mapStateToProps, updateState } from "../Login/Login";
+import { mapStateToProps, mapDispatchToProps, updateState } from "../Login/Login";
 import { loginUser } from '../../actions'
 
 describe("Login", () => {
   let wrapper;
-  
-  it("should have initial state", () => {
-    wrapper = shallow(<Login />);
-  });
 
-  it("should match the snapshot", () => {
-    wrapper = shallow(<Login />);
+  beforeEach(() => {
+    wrapper = shallow(<Login />)
+  })
+
+  it.skip("should match the snapshot", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  describe("handleChange", () => {
-    it.skip("should live-update state with changes from buttons", () => {});
+  it.skip("should have default state", () => {
+    const mockDefaultState = {
+      name: "",
+      email: "",
+      password: "",
+      errorMsg: "",
+      newUserName: "",
+      newUserEmail: "",
+      newUserPassword: "",
+      createUser: false
+    }
+    
+    wrapper = shallow(<Login />, { disableLifecycleMethods: true })
+    expect(wrapper.state()).toEqual(mockDefaultState)
   });
 
   // describe('updateState', () => {
@@ -27,8 +38,8 @@ describe("Login", () => {
   //   expect(setState).toHaveBeenCalled()
   // })
 
-  describe('handleSubmit', async (e) => {
-    it('should', () => {
+  describe('handleSubmit', () => {
+    it('should', async () => {
       const mockEvent = {target: {}}
       const mockPreventDefault = {preventDefault: () => {}}
       const mockState = {
@@ -45,7 +56,7 @@ describe("Login", () => {
         json: () => Promise.resolve({email: mockState.email, password: mockState.password})
       }))
 
-      const mockUser = mockCleanedUser.json()
+      const mockUser = await mockCleanedUser.json()
       const mockCleanUser = jest.fn()
       await wrapper.instance().handleSubmit()
       expect().toHaveBeenCalled()
@@ -60,7 +71,8 @@ describe("Login", () => {
 
 
 
-describe("maphDispatchToProps", () => {
+describe("mapDispatchToProps", () => {
+
   it("should dispatch action.loginUser with a payload of user data", () => {
     const mockDispatch = jest.fn();
     const mockUserData = {

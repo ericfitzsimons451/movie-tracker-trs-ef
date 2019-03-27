@@ -1,6 +1,6 @@
 import { errorMessageReducer } from '../reducers/errorMessageReducer'
 
-describe('errorMessageReducer', () => {
+describe.skip('errorMessageReducer', () => {
     it('should return default state when there is no type', () => {
         const initialState = ''
         const action = {}

@@ -6,7 +6,7 @@ import React from "react";
 import { allPurposeFetch } from '../../allPurposeFetch'
 jest.mock('../../allPurposeFetch')
 
-describe("App", () => {
+describe.skip("App", () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(<App />);

@@ -31,7 +31,7 @@ export class App extends Component {
       poster_path: movie.poster_path,
       release_date: movie.release_date,
       vote_average: movie.vote_average,
-      overview: movie.overview
+      overview: movie.overview,
     }));
     return cleanedMovies;
   };
@@ -60,7 +60,7 @@ export class App extends Component {
           exact
           path="/"
           className="display"
-          render={() => <AllMovies movies={this.props.movies} />}
+          render={() => <AllMovies favorites={this.props.favorites} movies={this.props.movies} />}
         />
         <Route path="/login" className="display" render={() => <Login />} />
         <Route

@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import Nav from './Nav'
 
-describe('Nav', () => {
+describe.skip('Nav', () => {
     let wrapper
     it('should match the snapshot with all data passed down', () => {
         const props = {

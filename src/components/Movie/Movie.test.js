@@ -3,7 +3,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import { mapStateToProps } from './Movie';
 
-describe("Movie", () => {
+describe.skip("Movie", () => {
   let wrapper;
   it('should match the snapshot with all data passed down', () => {
     const mockProps = {
